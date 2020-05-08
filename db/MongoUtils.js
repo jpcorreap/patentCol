@@ -2,7 +2,7 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 require("dotenv").config();
 
-const url = process.env.DB_URL;
+const url = "mongodb+srv://vaca:vaca123@cluster0-3lhwp.mongodb.net/test?retryWrites=true&w=majority";
 
 function MongoUtils() {
   const mu = {};
@@ -24,7 +24,7 @@ function MongoUtils() {
   mu.users.create = (username, password) =>
     mu.connect().then((client) => {
       console.log("Se conectó a la base de datos y va a guardar ", username, ":", password );
-      const usuarios = client.db("quedateEnCasa").collection("usuarios");
+      const usuarios = client.db("patentCol").collection("usuarios");
 
       return usuarios
         .insertOne({ "username": username, "password": password })
@@ -34,7 +34,7 @@ function MongoUtils() {
   // Get a specific user by username
   mu.users.findByUsername = (user, cb) =>
     mu.connect().then((client) => {
-      const usuarios = client.db("quedateEnCasa").collection("usuarios");
+      const usuarios = client.db("patentCol").collection("usuarios");
 
       return usuarios
         .findOne({ "username": user })
@@ -48,7 +48,7 @@ function MongoUtils() {
   // Get a specific user by id
   mu.users.findOneById = (id, cb) =>
     mu.connect().then((client) => {
-      const usuarios = client.db("quedateEnCasa").collection("usuarios");
+      const usuarios = client.db("patentCol").collection("usuarios");
 
       // when searching by id we need to create an ObjectID
       return usuarios
