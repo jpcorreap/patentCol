@@ -18,9 +18,10 @@ router.post(
 
 router.post("/login", (req, res) => {
   console.log(req.body);
-  bd.users.findByUsername(req.body.username).then((user) => {
+  bd.users.findByUsername(req.body.username, ).then(user => {
     try {
-      if (bu.Accounts.validPassword(req.body.password, user.password)) {
+      console.log("se trajo al usuario", user);
+      if ( bu.Accounts.validPassword(req.body.password, user.password)){
         passport.authenticate("local", { failureRedirect: "/login" }),
         function (req, res) {
           res.redirect("/");
@@ -34,7 +35,7 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", function (req, res) {
   req.logout();
-  res.redirect("http://localhost:3000/");
+  res.redirect("/");
 });
 
 router.get(
@@ -45,13 +46,31 @@ router.get(
   }
 );
 
-// ----------------
-// Data endpoints
-// ----------------
-
-// Get information of current user
 router.get("/getUser", (req, res) => {
   return res.json(req.user || null);
+});
+
+router.get("/register", (req, res) => {
+  res.render("register");
+});
+
+router.post("/register", (req, res) => {
+  try {
+    bd.users.findByUsername(req.body.name, (nada,user) => {
+      console.log( "Llegó el usuario ", user );
+      if (user == null) {
+        let hashedPassword = bu.Accounts.generateHash(req.body.password);
+        bd.users
+          .create(req.body.name, hashedPassword)
+          .then(res.redirect("/login"));
+      } else {
+        console.log( req.body.name, "already exists!" );
+        res.redirect("/register");
+      }
+    });
+  } catch (e) {
+    res.status(500).send(e);
+  }
 });
 
 module.exports = router;

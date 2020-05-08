@@ -2,9 +2,7 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 require("dotenv").config();
 
-const url = "mongodb+srv://vaca3245:Desarrollo2299@cluster0-3mnil.mongodb.net/test?retryWrites=true&w=majority";
-
-const dbName = "patentCol";
+const url = process.env.DB_URL;
 
 function MongoUtils() {
   const mu = {};
@@ -20,51 +18,48 @@ function MongoUtils() {
   // ----------------------
   // Users operations
   // ----------------------
-
   mu.users = {};
 
-  // Create a new user of the application
+  //creates a new user of the application
   mu.users.create = (username, password) =>
-    mu.connect().then((client) =>
-      client
-        .db(dbName)
-        .collection("usuarios")
-        .insertOne({
-          username: username,
-          password: password,
-        })
-        .finally(() => client.close())
-    );
+    mu.connect().then((client) => {
+      console.log("Se conectó a la base de datos y va a guardar ", username, ":", password );
+      const usuarios = client.db("quedateEnCasa").collection("usuarios");
+
+      return usuarios
+        .insertOne({ "username": username, "password": password })
+        .finally(() => client.close());
+    });
 
   // Get a specific user by username
   mu.users.findByUsername = (user, cb) =>
-    mu.connect().then((client) =>
-      client
-        .db(dbName)
-        .collection("usuarios")
-        .findOne({ username: user })
+    mu.connect().then((client) => {
+      const usuarios = client.db("quedateEnCasa").collection("usuarios");
+
+      return usuarios
+        .findOne({ "username": user })
         .finally(() => client.close())
         .then((user) => {
+          console.log("Encontró al usuario ", user);
           cb(null, user);
-        })
-    );
+        });
+    });
 
   // Get a specific user by id
   mu.users.findOneById = (id, cb) =>
     mu.connect().then((client) => {
-      client
-        .db("quedateEnCasa")
-        .collection("usuarios")
-        .findOne({ _id: new ObjectID(id) }) // when searching by id we need to create an ObjectID
+      const usuarios = client.db("quedateEnCasa").collection("usuarios");
+
+      // when searching by id we need to create an ObjectID
+      return usuarios
+        .findOne({ _id: new ObjectID(id) })
         .finally(() => client.close())
         .then((user) => {
           cb(null, user);
         });
     });
 
-
-
   return mu;
-
 }
+
 module.exports = MongoUtils();

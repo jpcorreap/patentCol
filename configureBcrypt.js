@@ -1,4 +1,5 @@
 const bodyParser = require("body-parser");
+//var cookieParser = require("cookie-parser");
 var session = require("express-session");
 
 const configureBcrypt = (app) => {
