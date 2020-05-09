@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function PasoTitle(props) {
-  if (props.actual == 1) {
+  if (props.actual === 1) {
     return (
       <div>
         <div className="row text-center">
@@ -24,7 +24,7 @@ function PasoTitle(props) {
         </div>
       </div>
     );
-  } else if (props.actual == 6) {
+  } else if (props.actual === 6) {
     return (
       <div>
         <div className="row text-center">
