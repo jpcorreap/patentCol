@@ -15,7 +15,6 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
 function App() {
-
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -30,7 +29,16 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< HEAD
       {user ? (     
+=======
+      {user ? (
+        <Navbar autenticado={true} username={user.username} />
+      ) : (
+        <Navbar autenticado={false} />
+      )}
+      <br />
+>>>>>>> 807772761de0051b4e43e346cc5e66019394bf92
       <div className="container">
         <Navbar autenticado={true} username={user.username}/>
         <Switch>
