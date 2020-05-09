@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.js";
 import Home from "./components/Home.js";
 import ProgressBar from "./components/ProgressBar.js";
@@ -8,19 +8,40 @@ import Paso3 from "./components/Paso3.js";
 import Paso4 from "./components/Paso4.js";
 import Paso5 from "./components/Paso5.js";
 import Paso6 from "./components/Paso6.js";
+import Register from "./components/Register.js";
+import Login from "./components/Login.js";
 import { Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
 function App() {
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    fetch("/getUser")
+      .then((res) => res.json())
+      .then((user) => {
+        if (user) {
+          setUser(user);
+        }
+      });
+  }, []);
+
   return (
     <div className="App">
-      <Navbar />
+      {user ? (<Navbar autenticado={true} username={user.username}/>):(<Navbar autenticado={false} />)} 
       <br />
       <div className="container">
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/register">
+            <Register />
           </Route>
           <Route exact path="/paso1">
             <ProgressBar avance={1} />
