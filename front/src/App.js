@@ -30,9 +30,9 @@ function App() {
 
   return (
     <div className="App">
-      {user ? (<Navbar autenticado={true} username={user.username}/>):(<Navbar autenticado={false} />)} 
-      <br />
+      {user ? (     
       <div className="container">
+        <Navbar autenticado={true} username={user.username}/>
         <Switch>
           <Route exact path="/">
             <Home />
@@ -73,8 +73,32 @@ function App() {
             <Paso6 />
           </Route>
         </Switch>
-
       </div>
+    ) : (
+      <div className="container">
+        <Navbar autenticado={false} />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/register">
+            <Register />
+          </Route>
+        </Switch>
+        <br />
+          <br />
+          <div className="container">
+            <h5 id="footer">
+              ¡Inicia sesión para acceder a muchas más funcionalidades! Podrás
+              guardar, crear, eliminar y visualizar tus actividades.
+              <br />
+            </h5>
+          </div>
+      </div>
+      )} 
     </div>
   );
 }
