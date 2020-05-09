@@ -1,20 +1,15 @@
-import React from 'react';
-import { Link } from "react-router-dom";
+import React from "react";
+import PasoTitle from "./PasoTitle.js";
 
 function Paso3() {
-    return (<div>
-        <h2>Paso 3. Consultar estado de la técnica.</h2>
-        <br />
-        <p>Acá se pondrá lo de la API de la Comisión Europea de Patentes.</p>
-        <br />
-        <Link to={"/paso2"}>
-            <button className="btn btn-primary">Anterior</button>
-        </Link>
-
-        <Link to={"/paso4"}>
-            <button className="btn btn-primary">Siguiente</button>
-        </Link>
-    </div>)
+  return (
+    <div className="paso">
+      <PasoTitle actual={3} nombre="Estado de la técnica" />
+      <br />
+      <p>Acá se pondrá lo de la API de la Comisión Europea de Patentes.</p>
+      <br />
+    </div>
+  );
 }
 
 export default Paso3;

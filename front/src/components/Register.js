@@ -9,7 +9,13 @@ const Register = () => {
             <div className="form-group">
               <div className="row">
                 <label>Usuario:</label>
-                <input type="text" className="form-control" name="username" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  name="name"
+                  required
+                />
               </div>
             </div>
             <div className="form-group">
@@ -33,7 +39,7 @@ const Register = () => {
               </div>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-warning" >
+              <button type="submit" className="btn btn-primary">
                 Registrarse
               </button>
             </div>

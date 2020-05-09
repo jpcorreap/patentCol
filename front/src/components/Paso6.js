@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
+import PasoTitle from "./PasoTitle.js";
 
 function Paso6() {
-    return (<div>
-        <h2>Paso 6. Seguir el trámite</h2>
-        <br />
-        <br />
-        <button className="btn btn-primary">Ver seguimiento</button>
-    </div>)
+  return (
+    <div className="paso">
+      <PasoTitle actual={6} nombre="Rastrear el trámite" />;
+    </div>
+  );
 }
 
 export default Paso6;

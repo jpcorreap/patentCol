@@ -5,3 +5,13 @@
 .paso {
   margin-top: 30px;
 }
+
+.tituloPaso {
+  background-color: #17a2b8;
+  font-size: x-large;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+}

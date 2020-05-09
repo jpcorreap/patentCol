@@ -15,7 +15,6 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
 function App() {
-
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -30,7 +29,11 @@ function App() {
 
   return (
     <div className="App">
-      {user ? (<Navbar autenticado={true} username={user.username}/>):(<Navbar autenticado={false} />)} 
+      {user ? (
+        <Navbar autenticado={true} username={user.username} />
+      ) : (
+        <Navbar autenticado={false} />
+      )}
       <br />
       <div className="container">
         <Switch>
@@ -73,7 +76,6 @@ function App() {
             <Paso6 />
           </Route>
         </Switch>
-
       </div>
     </div>
   );
