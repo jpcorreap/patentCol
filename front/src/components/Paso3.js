@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PasoTitle from "./PasoTitle.js";
 
-const [hasError, setErrors] = useState(false);
+
+    const [hasError, setErrors] = useState(false);
     const [patents, setPatents]= useState({});
 
 
@@ -29,4 +30,3 @@ function Paso3() {
 }
 
 export default Paso3;
-import PasoTitle from "./PasoTitle.js";

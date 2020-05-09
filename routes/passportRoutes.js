@@ -23,9 +23,9 @@ router.post("/login", (req, res) => {
       console.log("se trajo al usuario", user);
       if (bu.Accounts.validPassword(req.body.password, user.password)) {
         passport.authenticate("local", { failureRedirect: "/login" }),
-          function (req, res) {
-            res.redirect("/");
-          };
+        function (req, res) {
+          res.redirect("/");
+        };
       }
     } catch (e) {
       res.status(500).send();
