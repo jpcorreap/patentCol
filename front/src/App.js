@@ -30,7 +30,7 @@ function App() {
         <Home />
       </Route>
       </Switch>
-        <Pasos />
+       
       </div>
     </div>
   );
