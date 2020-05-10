@@ -11,9 +11,34 @@ import Paso4 from "./Paso4.js";
 import Paso5 from "./Paso5.js";
 import Paso6 from "./Paso6.js";
 
-function Pasos() {
+function Pasos(props) {
   return (
-    <Switch>
+    <div>
+    { props.autenticado === false ? (
+      <div>
+      <Switch>
+        <Route exact path="/">
+         <Home />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+       <Route exact path="/register">
+         <Register />
+        </Route>
+      </Switch>
+      <br/>
+      <br/>
+      <br/>
+      <div className="container">
+            <h5 id="footer">
+              ¡Inicia sesión para acceder a muchas más funcionalidades! Podrás
+              guardar, crear, eliminar y visualizar tus actividades.
+              <br />
+            </h5>
+          </div>
+      </div>
+    ):(<Switch>
       <Route exact path="/">
         <Home />
       </Route>
@@ -52,7 +77,8 @@ function Pasos() {
         <ProgressBar avance={6} />
         <Paso6 />
       </Route>
-    </Switch>
+    </Switch>)}
+    </div>
   );
 }
 

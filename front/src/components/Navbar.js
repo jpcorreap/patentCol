@@ -42,14 +42,6 @@ function Navbar(props) {
                 </li>
               </ul>
             </div>
-            <Switch>
-              <Route exact path="/login">
-                <Login />
-              </Route>
-              <Route exact path="/register">
-                <Register />
-              </Route>
-            </Switch>
           </div>
         ) : (
           <div

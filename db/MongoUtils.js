@@ -2,7 +2,7 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 require("dotenv").config();
 
-const url = process.env.MONGOURL;
+const url =process.env.MONGOURL;
 
 function MongoUtils() {
   const mu = {};

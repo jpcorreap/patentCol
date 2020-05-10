@@ -24,7 +24,11 @@ function App() {
         <Navbar autenticado={false} />
       )}
       <div className="container">
-        <Pasos />
+      {user ? (
+        <Pasos autenticado={true} username={user.username} />
+      ) : (
+        <Pasos autenticado={false} />
+      )}  
       </div>
     </div>
   );
