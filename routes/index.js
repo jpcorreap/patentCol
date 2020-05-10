@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.get("/", function (req, res) {
-  res.render("/", { user: req.user });
+  res.render("home", { user: req.user });
 });
 
 // Data endpoints
