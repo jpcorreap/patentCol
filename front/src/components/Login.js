@@ -14,7 +14,7 @@ const Login = () => {
             </div>
             <div className="form-group">
               <div className="row">
-                <label>Contraseña:</label>
+                <label>Contraseña::</label>
                 <input
                   type="password"
                   className="form-control"
