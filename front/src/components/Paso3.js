@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import PasoTitle from "./PasoTitle.js";
 
-
-    
 function Paso3() {
 
     
@@ -27,7 +25,7 @@ function Paso3() {
     <div className="paso">
       <PasoTitle actual={3} nombre="Estado de la técnica" />
       <br />
-      <p>Acá se pondrá lo de la API de la Comisión Europea de Patentes.</p>
+      <p>Se trajo todas las patentes de </p>
       <br />
       <div>{JSON.stringify(patents)}</div>
       <div>Has error: {JSON.stringify(hasError)}</div>

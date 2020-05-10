@@ -1,6 +1,8 @@
 import React from "react";
 import bandera from "../Bandera Colombia.png";
-import { Link } from "react-router-dom";
+import { Link, Route, Switch } from "react-router-dom";
+import Login from "./Login.js";
+import Register from "./Register.js";
 
 function Navbar(props) {
   return (
@@ -23,21 +25,31 @@ function Navbar(props) {
         className="collapse navbar-collapse justify-content-end"
         id="navbarSupportedContent">
         {props.autenticado === false ? (
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarSupportedContent">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  <strong>Login</strong>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  <strong>register</strong>
-                </Link>
-              </li>
-            </ul>
+          <div>
+            <div
+              className="collapse navbar-collapse justify-content-end"
+              id="navbarSupportedContent">
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <Link to={"/login"} className="nav-link">
+                    <strong>Ingresar</strong>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={"/register"} className="nav-link">
+                    <strong>Registrarse</strong>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <Switch>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/register">
+                <Register />
+              </Route>
+            </Switch>
           </div>
         ) : (
           <div
