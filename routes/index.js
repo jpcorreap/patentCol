@@ -9,5 +9,4 @@ router.get("/", function (req, res) {
 
 // Data endpoints
 
-
 module.exports = router;

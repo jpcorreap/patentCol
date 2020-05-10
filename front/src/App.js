@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.js";
 import Pasos from "./components/Pasos.js";
+import Home from "./components/Home.js";
 import "./App.css";
 
 function App() {
@@ -24,6 +25,11 @@ function App() {
         <Navbar autenticado={false} />
       )}
       <div className="container">
+      <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+      </Switch>
         <Pasos />
       </div>
     </div>
