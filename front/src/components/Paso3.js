@@ -11,21 +11,17 @@ function Paso3() {
 
     const display = ["patent_number","patent_date"];
     console.log(display);
-    const operation = "_gte";
-    const val1 = "patent_date";
-    const val2= "2007-01-04"
 
 
     useEffect(() =>{
         async function fetchData(){
-        const res = await fetch(`https://www.patentsview.org/api/patents/query?q={${operation}:{${val1}:${val2}}}&f=${display}`);
+        const res = await fetch(`https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2007-01-04"}}&f=["patent_number","patent_abstract","patent_title","patent_type","patent_year"]`);
         res.json()
         .then(res => setPatents(res))
         .catch(err => setErrors(err));
         }
         fetchData();
     });
-
 
   return (
     <div className="paso">
@@ -35,6 +31,7 @@ function Paso3() {
       <br />
       <div>{JSON.stringify(patents)}</div>
       <div>Has error: {JSON.stringify(hasError)}</div>
+    
     </div>
   );
 }
