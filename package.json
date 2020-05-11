@@ -6,7 +6,6 @@
     "start": "node ./bin/www",
     "server": "nodemon ./bin/www",
     "heroku-postbuild": "cd front && yarn install && yarn run build"
-
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
@@ -22,7 +21,9 @@
     "mongodb": "^3.5.5",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "reakit": "^1.0.0-rc.2",
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
