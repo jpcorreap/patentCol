@@ -1,6 +1,8 @@
 # patentCol
 Sitio web para ayudar a PyMEs e inventores independientes colombianos en el proceso de solicitud de patentes.
 
+![Thumbnail de la aplicacion](https://github.com/jpcorreap/patentCol/blob/master/image.png?raw=true)
+
 # Tecnologías usadas
 Se utiliza un servidor de Express.js que ejecuta el backend en el puerto 3001. Se usa Mongo Atlas como base de datos. Para el frontend se usó React. La autenticación se realiza con Passport.js y Bcrypt.
 
@@ -9,6 +11,7 @@ Se utiliza un servidor de Express.js que ejecuta el backend en el puerto 3001. S
 **Node.js**
 
 Se debe tener Node.js instalado, en caso de no poseerlo esta es la pagina web para descargarlo y ejecutar las instrucciones https://nodejs.org/es/download/
+
 
 **MongoDB**
 
