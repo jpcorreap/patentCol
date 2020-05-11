@@ -2,7 +2,8 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 require("dotenv").config();
 
-const url ="mongodb+srv://vaca:vaca123@cluster0-3lhwp.mongodb.net/test?retryWrites=true&w=majority";
+const url =
+  "mongodb+srv://vaca:vaca123@cluster0-3lhwp.mongodb.net/test?retryWrites=true&w=majority";
 //process.env.MONGOURL;
 
 function MongoUtils() {
@@ -24,11 +25,16 @@ function MongoUtils() {
   //creates a new user of the application
   mu.users.create = (username, password) =>
     mu.connect().then((client) => {
-      console.log("Se conectó a la base de datos y va a guardar ", username, ":", password );
+      console.log(
+        "Se conectó a la base de datos y va a guardar ",
+        username,
+        ":",
+        password
+      );
       const usuarios = client.db("patentCol").collection("usuarios");
 
       return usuarios
-        .insertOne({ "username": username, "password": password })
+        .insertOne({ username: username, password: password })
         .finally(() => client.close());
     });
 
@@ -38,7 +44,7 @@ function MongoUtils() {
       const usuarios = client.db("patentCol").collection("usuarios");
 
       return usuarios
-        .findOne({ "username": user })
+        .findOne({ username: user })
         .finally(() => client.close())
         .then((user) => {
           console.log("Encontró al usuario ", user);
@@ -59,6 +65,32 @@ function MongoUtils() {
           cb(null, user);
         });
     });
+
+  mu.patents = {};
+
+  mu.patents.getPatentScope = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("patentscope")
+        .find({})
+        .limit(20)
+        .sort({ _id: -1 })
+        .toArray()
+        .finally(() => client.close())
+    );
+
+  mu.patents.getGoogleUtilityPatents = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("googleUtilityPatents")
+        .find({})
+        .limit(20)
+        .sort({ _id: -1 })
+        .toArray()
+        .finally(() => client.close())
+    );
 
   return mu;
 }
