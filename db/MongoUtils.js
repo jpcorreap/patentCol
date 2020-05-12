@@ -89,14 +89,14 @@ function MongoUtils() {
   mu.createSolicitud = (username, body) =>
     mu.connect().then((client) => {
       console.log("OJOOOO! LLegó a Crear Solicitud con el body ", body);
-      let nuevoTitulo = "Titulo";
-      let nuevaDescripcion = "Esta es una nueva descripción";
+      let nuevoTitulo = body.registro;
+      let nuevaDescripcion = body.titulo;
       client
         .db("patentCol")
         .collection("solicitudes")
         .insertOne({
           inventor: username,
-          titulo: nuevoTitulo,
+          nombre: nuevoTitulo,
           descripcion: nuevaDescripcion,
         })
         .finally(() => client.close());

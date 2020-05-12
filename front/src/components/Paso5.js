@@ -7,12 +7,18 @@ function Paso5() {
       <PasoTitle actual={5} nombre="Presenta tu idea" />
       <br />
       <p>
-        Para enviar el formulario a la Superintendencia de Industria y Comercio
-        de Colombia, puedes hacerlo de manera virtual por{" "}
+        Envía la solicitud a la Superintendencia de Industria y Comercio de
+        manera virtual a través de su{" "}
         <a href="https://sipi.sic.gov.co/sipi/Extra/Default.aspx">
           Sistema de Propiedad Industrial (SIPI)
         </a>
+        .{" "}
       </p>
+      <div className="img-container text-center">
+        <img
+          src="https://raw.githubusercontent.com/jpcorreap/patentCol/master/front/src/PantallazoSIPI.png"
+          width="60%"></img>
+      </div>
       <br />
     </div>
   );

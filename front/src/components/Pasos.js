@@ -83,7 +83,7 @@ function Pasos(props) {
 
         <Route exact path="/paso6">
           <ProgressBar avance={6} />
-          <Paso6 />
+          {props.username ? <Paso6 username={props.username} /> : <Paso6 />}
         </Route>
       </Switch>
     </div>

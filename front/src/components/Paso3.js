@@ -52,7 +52,7 @@ function Paso3() {
   useEffect(() => {
     async function fetchPatentsView() {
       const res = await fetch(
-        'https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2019-01-04"}}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]'
+        'https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2010-01-01"}}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]'
       );
       res
         .json()
@@ -60,7 +60,9 @@ function Paso3() {
           setPatentsView(res.patents);
           ocultarSpinner();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          ocultarSpinner();
+        });
     }
     fetchPatentsView();
   }, []);
@@ -118,7 +120,7 @@ function Paso3() {
             <input
               className="form-control mr-sm-2"
               type="search"
-              placeholder="AAAA-MM-DD"
+              placeholder="Posteriores a la fecha (AAAA-MM-DD)"
               aria-label="Search"
               id="barraFecha"
             />
