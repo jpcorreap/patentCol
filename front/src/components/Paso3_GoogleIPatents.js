@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PasoTitle from "./PasoTitle.js";
 
-function Paso3_PatentScope() {
-  const [patentScope, setPatentScope] = useState([]);
+function Paso3_GoogleIPatents() {
+  const [googleUtilityPatents, setGoogleUtilityPatents] = useState([]);
 
   // Hace GET de la base de datos
   useEffect(() => {
-    fetch("/getPatentscope")
+    fetch("/getGoogleUtilityPatents")
       .then((res) => res.json())
-      .then((patentScope) => {
-        if (patentScope) {
-          setPatentScope(patentScope);
+      .then((googleUtilityPatents) => {
+        if (googleUtilityPatents) {
+          setGoogleUtilityPatents(googleUtilityPatents);
           document.getElementById("spinnerCarga").style.visibility = "hidden";
           document.getElementById("spinnerCarga").style.position = "absolute";
         }
@@ -26,11 +26,13 @@ function Paso3_PatentScope() {
       <div className="row text-center">
         <div className="col text-center">
           <Link to={"paso3"}>
-            <button className="btn btn-info">API PatentsView</button>
+            <button className="btn btn-info">PatentsView</button>
           </Link>
         </div>
         <div className="col text-center">
-          <button className="btn btn-dark">PatentScope</button>
+          <Link to={"paso3_scope"}>
+            <button className="btn btn-info">PatentScope</button>
+          </Link>
         </div>
         <div className="col text-center">
           <Link to={"paso3_googleutility"}>
@@ -38,9 +40,7 @@ function Paso3_PatentScope() {
           </Link>
         </div>
         <div className="col text-center">
-          <Link to={"paso3_googleissued"}>
-            <button className="btn btn-info">Google Issued Patents</button>
-          </Link>
+          <button className="btn btn-dark">Google Issued Patents</button>
         </div>
         <div className="col text-center">
           <Link to={"paso3_nasa"}>
@@ -50,20 +50,20 @@ function Paso3_PatentScope() {
       </div>
       <br />
       <div className="row text-center">
+        <br />
         <div className="col-12">
           <img
-            alt="PatentScope Logo"
-            style={{ height: "180px" }}
-            src="https://raw.githubusercontent.com/jpcorreap/patentCol/master/front/src/PatentScope.png"></img>
+            alt="GooglePatents Logo"
+            style={{ height: "150px" }}
+            src="https://raw.githubusercontent.com/jpcorreap/patentCol/master/front/src/GooglePatents.png"></img>
         </div>
-        <br />
-        <br />
       </div>
+      <br />
       <div>
         <div className="container">
           <div className="row justify-content-center">
             <div
-              className="spinner-border text-info"
+              className="spinner-border text-warning"
               role="status"
               id="spinnerCarga">
               <span className="sr-only">
@@ -73,24 +73,18 @@ function Paso3_PatentScope() {
               <br />
             </div>
             <br />
-            {patentScope.map((patent) => (
-              <div className="card border-info mb-3 col-md-12" key={patent._id}>
+            {googleUtilityPatents.map((patent) => (
+              <div
+                className="card border-warning mb-3 col-md-12"
+                key={patent._id}>
                 <div className="card-header">
                   <h4>{patent.title}</h4>
                 </div>
                 <div className="card-body">
                   <p>
-                    <strong>Date:</strong> {patent.date}.{" "}
-                    <strong>Reference:</strong>{" "}
-                    <a
-                      href={patent.link}
-                      target="_blank"
-                      rel="noopener noreferrer">
-                      Patentscope
-                    </a>
+                    <strong>Date:</strong> {patent.date}
                   </p>
-                  <p className="card-text text-justify">{patent.description}</p>
-                  <p>{patent.author}</p>
+                  <p className="card-text text-justify">{patent.abstract}</p>
                 </div>
               </div>
             ))}
@@ -101,4 +95,4 @@ function Paso3_PatentScope() {
   );
 }
 
-export default Paso3_PatentScope;
+export default Paso3_GoogleIPatents;

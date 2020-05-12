@@ -72,7 +72,7 @@ function Paso3() {
       <br />
       <div className="row text-center">
         <div className="col text-center">
-          <button className="btn btn-primary">API PatentsView</button>
+          <button className="btn btn-dark">PatentsView</button>
         </div>
         <div className="col text-center">
           <Link to={"paso3_scope"}>
@@ -80,13 +80,19 @@ function Paso3() {
           </Link>
         </div>
         <div className="col text-center">
-          <button className="btn btn-info">Google Utility Patents</button>
+          <Link to={"paso3_googleutility"}>
+            <button className="btn btn-info">Google Utility Patents</button>
+          </Link>
         </div>
         <div className="col text-center">
-          <button className="btn btn-info">Google Issued Patents</button>
+          <Link to={"paso3_googleissued"}>
+            <button className="btn btn-info">Google Issued Patents</button>
+          </Link>
         </div>
         <div className="col text-center">
-          <button className="btn btn-info">NASA Patents</button>
+          <Link to={"paso3_nasa"}>
+            <button className="btn btn-info">NASA Patents</button>
+          </Link>
         </div>
       </div>
       <br />
@@ -96,6 +102,7 @@ function Paso3() {
           <div className="col-5">
             <img
               style={{ width: "100%" }}
+              alt="PatentsView Logo"
               id="imagenAHH"
               src="https://www.patentsview.org/web/img/f34f24560eeb9097579c2be6fa29f5a7.logo_2x.png"></img>
           </div>
@@ -126,6 +133,7 @@ function Paso3() {
               onClick={actualizarConsulta}
               className="btn btn-info my-2 my-sm-0">
               <img
+                alt="Filter button"
                 src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/filter-512.png"
                 width="100%"></img>
             </button>

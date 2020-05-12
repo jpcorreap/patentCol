@@ -8,6 +8,9 @@ import Paso1 from "./Paso1.js";
 import Paso2 from "./Paso2.js";
 import Paso3 from "./Paso3.js";
 import Paso3_PatentScope from "./Paso3_PatentScope.js";
+import Paso3_GoogleUPatents from "./Paso3_GoogleUPatents.js";
+import Paso3_GoogleIPatents from "./Paso3_GoogleIPatents.js";
+import Paso3_NasaPatents from "./Paso3_NasaPatents.js";
 import Paso4 from "./Paso4.js";
 import Paso5 from "./Paso5.js";
 import Paso6 from "./Paso6.js";
@@ -20,15 +23,19 @@ function Pasos(props) {
         <Route exact path="/">
           <Home />
         </Route>
+
         <Route exact path="/login">
           <Login />
         </Route>
+
         <Route exact path="/register">
           <Register />
         </Route>
+
         <Route exact path="/solicitudes">
           <Solicitudes />
         </Route>
+
         <Route exact path="/paso1">
           <ProgressBar avance={1} />
           <Paso1 />
@@ -47,6 +54,21 @@ function Pasos(props) {
         <Route exact path="/paso3_scope">
           <ProgressBar avance={3} />
           <Paso3_PatentScope />
+        </Route>
+
+        <Route exact path="/paso3_googleutility">
+          <ProgressBar avance={3} />
+          <Paso3_GoogleUPatents />
+        </Route>
+
+        <Route exact path="/paso3_googleissued">
+          <ProgressBar avance={3} />
+          <Paso3_GoogleIPatents />
+        </Route>
+
+        <Route exact path="/paso3_nasa">
+          <ProgressBar avance={3} />
+          <Paso3_NasaPatents />
         </Route>
 
         <Route exact path="/paso4">
