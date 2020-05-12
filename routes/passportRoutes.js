@@ -23,9 +23,9 @@ router.post("/login", (req, res) => {
       console.log("se trajo al usuario", user);
       if (bu.Accounts.validPassword(req.body.password, user.password)) {
         passport.authenticate("local", { failureRedirect: "/login" }),
-        function (req, res) {
-          res.redirect("/");
-        };
+          function (req, res) {
+            res.redirect("/");
+          };
       }
     } catch (e) {
       res.status(500).send();
@@ -50,10 +50,6 @@ router.get("/getUser", (req, res) => {
   return res.json(req.user || null);
 });
 
-router.get("/register", (req, res) => {
-  res.render("register");
-});
-
 router.post("/register", (req, res) => {
   try {
     bd.users.findByUsername(req.body.name, (nada, user) => {
@@ -64,7 +60,7 @@ router.post("/register", (req, res) => {
           .then(res.redirect("/login"));
       } else {
         console.log(req.body.name, "El usuario ya existe");
-        res.redirect("/register");
+        res.redirect("/");
       }
     });
   } catch (e) {
