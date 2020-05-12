@@ -71,7 +71,7 @@ return(
             </div>
           </form>
         </div>
-      </div>
+        </div>
         <h1>Reactive</h1>
         <div>{err?<div>rrre {JSON.stringify(err)} </div>:""}</div>
         {docs.map((d,i) => (
