@@ -8,8 +8,9 @@ router.get("/", function (req, res) {
 
 // Data endpoints
 router.get("/solicitudes",  (req, res) => {
-  db.getSolicitudes().then((solicitudes) => {
-    res.json(solicitudes);
+  console.log("12");
+  db.getSolicitudes().then((docs) => {
+    res.json({succes: true ,docs});
   });
 });
 

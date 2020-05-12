@@ -58,7 +58,7 @@ return(
         <h1>Reactive</h1>
         <div>{err?<div>rrre {JSON.stringify(err)} </div>:""}</div>
         {docs.map((d,i) => (
-          <div key={i}>{}</div>
+          <div key={i}>{d.nombre}</div>
         ))}
     </div>
 );
