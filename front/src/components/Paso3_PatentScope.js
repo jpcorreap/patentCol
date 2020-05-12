@@ -44,14 +44,13 @@ function Paso3_PatentScope() {
       <br />
       <br />
       <div>
-        <h3 className="text-success">Patentscope:</h3>
         <div className="container">
           <div className="row justify-content-center">
             <div
-              class="spinner-border text-info"
+              className="spinner-info text-info"
               role="status"
               id="spinnerCarga">
-              <span class="sr-only">Buscando información...</span>
+              <span className="sr-only">Buscando información...</span>
             </div>
             {patentScope.map((patent) => (
               <div

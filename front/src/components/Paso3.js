@@ -1,25 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PasoTitle from "./PasoTitle.js";
-//import styled from "styled-components";
-//import { useCheckboxState, Checkbox } from "reakit/Checkbox";
-
-// Styling a regular HTML input
-/*const StyledInput = styled.input`
-  display: block;
-  margin: 20px 0px;
-  border: 1px solid lightblue;
-`;*/
 
 function Paso3() {
   const [patentsView, setPatentsView] = useState([]);
 
-  const [hasError, setErrors] = useState(false);
+  // Actualiza las patentes con la query dada por el usuario
+  const actualizarConsulta = () => {
+    let palabrasClave = document.getElementById("barraPalabras").value;
+    let queriesPalabrasClave = "";
 
-  /* const tipo = [];
-  const inputProps = useInput();
-  const checkbox = useCheckboxState({ state: [] });
-*/
+    palabrasClave.split(" ").forEach((palabra) => {
+      queriesPalabrasClave +=
+        ',{"_text_any":{"patent_title":"' + palabra + '"}}';
+    });
+
+    let fecha = document.getElementById("barraFecha").value;
+    mostrarSpinner();
+
+    async function fetchNewPatentsView() {
+      console.log(
+        "OJOO, va a hacer get a ",
+        `https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"${fecha}"}}${queriesPalabrasClave}]}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]`
+      );
+      const res = await fetch(
+        `https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"${fecha}"}}${queriesPalabrasClave}]}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]`
+      );
+      res
+        .json()
+        .then((res) => {
+          setPatentsView(res.patents);
+          ocultarSpinner();
+        })
+        .catch((err) => {});
+    }
+    fetchNewPatentsView();
+  };
+
+  // Oculta el spinner
+  const ocultarSpinner = () => {
+    document.getElementById("spinnerCarga").style.visibility = "hidden";
+    document.getElementById("spinnerCarga").style.position = "absolute";
+  };
+
+  const mostrarSpinner = () => {
+    document.getElementById("spinnerCarga").style.visibility = "visible";
+    document.getElementById("spinnerCarga").style.position = "relative";
+  };
 
   // Hace GET de la API
   useEffect(() => {
@@ -29,27 +56,14 @@ function Paso3() {
       );
       res
         .json()
-        .then((res) => setPatentsView(res.patents))
-        .catch((err) => setErrors(err));
+        .then((res) => {
+          setPatentsView(res.patents);
+          ocultarSpinner();
+        })
+        .catch((err) => {});
     }
     fetchPatentsView();
   }, []);
-
-  /*
-  PENDIENTE PARA HACER LOS FILTROS:
-
-  Buscar por fecha mayor a:
-  https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2019-01-04"}}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
-
-  Buscar por ÚNICA palabra clave:
-  https://www.patentsview.org/api/patents/query?q={"_text_any":{"patent_title":"pillow"}}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
-
-  Buscar por palabras clave:
-  https://www.patentsview.org/api/patents/query?q={"_and":[{"_text_any":{"patent_title":"pillow"}},{"_text_any":{"patent_title":"inflatable"}}]}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
-
-  Buscar por palabras clave y fecha mayor a:
-  https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"2019-01-04"}},{"_text_any":{"patent_title":"pillow"}},{"_text_any":{"patent_title":"inflatable"}}]}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
-  */
 
   return (
     <div className="paso">
@@ -79,55 +93,93 @@ function Paso3() {
 
       <div>
         <div className="row">
-          <div className="col-4">
+          <div className="col-5">
             <img
+              style={{ width: "100%" }}
               id="imagenAHH"
               src="https://www.patentsview.org/web/img/f34f24560eeb9097579c2be6fa29f5a7.logo_2x.png"></img>
           </div>
-          <div className="col text-right">
-            <img
-              src="https://st2.depositphotos.com/4191945/7462/v/950/depositphotos_74627113-stock-illustration-document-funnel-or-filter-logo.jpg"
-              width="100px"></img>
+          <div className="col-1"></div>
+          <div className="col-5 text-right">
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Palabras clave"
+              aria-label="Search"
+              id="barraPalabras"
+            />
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="AAAA-MM-DD"
+              aria-label="Search"
+              id="barraFecha"
+            />
+          </div>
+          <div className="col">
+            <button
+              style={{
+                color: "blue",
+                width: "100%",
+                height: "70px",
+              }}
+              onClick={actualizarConsulta}
+              className="btn btn-info my-2 my-sm-0">
+              <img
+                src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/filter-512.png"
+                width="100%"></img>
+            </button>
           </div>
         </div>
         <div className="container">
           <br />
           <div className="row justify-content-center">
             <div
-              class="spinner-border text-info"
+              className="spinner-border text-info"
               role="status"
               id="spinnerCarga">
-              <span class="sr-only">Buscando información...</span>
+              <span className="sr-only">
+                Buscando información...
+                <br />
+              </span>
+              <br />
             </div>
-            {patentsView.map((patent) => (
-              <div
-                className="card border-info mb-3 col-md-12"
-                key={patent.patent_id}>
-                <div className="card-header">
-                  <h4>{patent.patent_title}</h4>
+            {patentsView != null ? (
+              patentsView.map((patent) => (
+                <div
+                  className="card border-info mb-3 col-md-12"
+                  key={patent.patent_id}>
+                  <div className="card-header">
+                    <h4>{patent.patent_title}</h4>
+                  </div>
+                  <div className="card-body">
+                    <p>
+                      <strong>Type:</strong> {patent.patent_type}
+                      {" - "}
+                      <strong>Date:</strong> {patent.patent_date}
+                      {" - "}
+                      <strong>Inventor(s):</strong>{" "}
+                      {patent.inventors.map((inventor) => {
+                        return (
+                          inventor.inventor_first_name +
+                          " (ID " +
+                          inventor.inventor_key_id +
+                          ") "
+                        );
+                      })}
+                    </p>
+                    <p className="card-text text-justify">
+                      {patent.patent_abstract}
+                    </p>
+                  </div>
                 </div>
-                <div className="card-body">
-                  <p>
-                    <strong>Type:</strong> {patent.patent_type}
-                    {" - "}
-                    <strong>Date:</strong> {patent.patent_date}
-                    {" - "}
-                    <strong>Inventor(s):</strong>{" "}
-                    {patent.inventors.map((inventor) => {
-                      return (
-                        inventor.inventor_first_name +
-                        " (ID " +
-                        inventor.inventor_key_id +
-                        ") "
-                      );
-                    })}
-                  </p>
-                  <p className="card-text text-justify">
-                    {patent.patent_abstract}
-                  </p>
-                </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p>
+                No se encontraron resultados con ese filtro, por favor busque
+                nuevamente.
+              </p>
+            )}
           </div>
         </div>
       </div>
