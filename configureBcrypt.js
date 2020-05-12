@@ -11,7 +11,6 @@ const configureBcrypt = (app) => {
     session({
       key: "user_sid",
       secret: process.env.BCRYPT,
-      //"goN6DJJC6E287cC77kkdYuNuAyWnz7Q3iZj8",
       resave: false,
       saveUninitialized: false,
       cookie: {

@@ -6,7 +6,7 @@ function Paso6(props) {
   const [err, setErr] = useState(null);
 
   const setupWS = () => {
-    const wss = new WebSocket("ws://localhost:3001");
+    const wss = new WebSocket("ws://patentcol.herokuapp.com");
 
     wss.onopen = () => {
       console.log("WS client connected");
