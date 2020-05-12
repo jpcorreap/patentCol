@@ -1,10 +1,10 @@
-# patentCol
+# Patent Col
 Sitio web para ayudar a PyMEs e inventores independientes colombianos en el proceso de solicitud de patentes.
 
 ![Thumbnail de la aplicacion](https://github.com/jpcorreap/patentCol/blob/master/image.png?raw=true)
 
 # Tecnologías usadas
-Se utiliza un servidor de Express.js que ejecuta el backend en el puerto 3001. Se usa Mongo Atlas como base de datos. Para el frontend se usó React. La autenticación se realiza con Passport.js y Bcrypt.
+Se utiliza un servidor de Express.js que corre sobre Node.js. Este es el backend en el puerto 3001. Se usa Mongo Atlas como base de datos y para el frontend se usó React, en el puerto 3000. La autenticación se realiza con Passport.js y se encriptan contraseñas con Bcrypt.
 
 # Requerimientos 
 
@@ -15,7 +15,7 @@ Se debe tener Node.js instalado, en caso de no poseerlo esta es la pagina web pa
 
 **MongoDB**
 
-Como la aplicacion se va a correr de manera local se debe tener instalado mongoDB para instalarlo se puede ir a la  siguiente pagina https://www.mongodb.com/download-center/community 
+Como la aplicacion se va a correr de manera local se debe tener instalado MongoDB. Para instalarlo local, diríjase a la  siguiente pagina https://www.mongodb.com/download-center/community 
 
 Despues de tenerlo instalado ejecutar :
 
@@ -39,4 +39,4 @@ El siguiente paso es ejecutar el front, construido con React. Para ello, ejecute
 `yarn`<br />
 `yarn start`
 
-Una vez seguidos los pasos anteriores, podrá acceder a la aplicación hosteada en el http://localhost:3000.
+Una vez seguidos los pasos anteriores, podrá acceder a la aplicación en su http://localhost:3000.
