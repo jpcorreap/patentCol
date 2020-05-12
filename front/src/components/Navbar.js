@@ -54,8 +54,8 @@ function Navbar(props) {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  <strong>Mis solicitudes</strong>
+                <Link to={"/solicitudes"} className="nav-link">
+                  <strong>Solicitudes</strong>
                 </Link>
               </li>
             </ul>

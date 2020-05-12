@@ -7,8 +7,20 @@ router.get("/", function (req, res) {
 });
 
 // Data endpoints
+router.get("/solicitudes",  (req, res) => {
+  db.getSolicitudes().then((solicitudes) => {
+    res.json(solicitudes);
+  });
+});
+
 router.get("/getPatentscope", function (req, res) {
   db.patents.getPatentScope().then((col) => {
+    res.json(col);
+  });
+});
+
+router.get("/getGoogleUtilityPatents", function (req, res) {
+  db.patents.getGoogleUtilityPatents().then((col) => {
     res.json(col);
   });
 });

@@ -11,6 +11,7 @@ import Paso3_PatentScope from "./Paso3_PatentScope.js";
 import Paso4 from "./Paso4.js";
 import Paso5 from "./Paso5.js";
 import Paso6 from "./Paso6.js";
+import Solicitudes from "./Solicitudes.js";
 
 function Pasos(props) {
   return (
@@ -24,6 +25,9 @@ function Pasos(props) {
         </Route>
         <Route exact path="/register">
           <Register />
+        </Route>
+        <Route exact path="/solicitudes">
+          <Solicitudes />
         </Route>
         <Route exact path="/paso1">
           <ProgressBar avance={1} />

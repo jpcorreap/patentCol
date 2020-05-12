@@ -66,7 +66,30 @@ function MongoUtils() {
         });
     });
 
+  mu.getSolicitudes = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("solicitudes")
+        .find({})
+        .toArray()
+        .finally(() => client.close())
+    );
+
+  mu.createSolicitud = (numero, titulo) =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("solicitudes")
+        .insertOne({
+          numero: numero,
+          titulo: titulo
+        })
+        .finally(() => client.close())
+    );
+
   mu.patents = {};
+
 
   mu.patents.getPatentScope = () =>
     mu.connect().then((client) =>
