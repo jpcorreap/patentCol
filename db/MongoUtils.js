@@ -88,6 +88,24 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
+  mu.listenForChanges = (notifyAll) =>{
+    console.log("Listening for changes");
+    return mu.connect().then((client) => {
+      const cursor = client
+        .db("patentCol")
+        .collection("solicitudes")
+        .watch();
+
+      cursor.on("change", (data)=>{
+        console.log("Mongo change", data);
+        mu.getSolicitudes()
+          .then(docs => {
+            notifyAll(JSON.stringify(docs));
+          });
+      });
+    });
+  };
+
   mu.patents = {};
 
 

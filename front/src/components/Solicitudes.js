@@ -4,8 +4,25 @@ function Solicitudes(){
 const [docs, setDocs]=useState([]);
 const [err, setErr]= useState(null);
 
+const setupWS = () =>{
+  const wss = new WebSocket(
+    "ws://localhost:3001"
+  );
+
+  wss.onopen = () =>{
+    console.log("WS client connected");
+
+    wss.onmessage = (msg) => {
+      console.log("WS got message", msg);
+
+      setDocs(JSON.parse(msg.data));
+    };
+  };
+};
 
 useEffect(()=>{
+    setupWS();
+
     fetch("/solicitudes")
     .then((res) => res.json())
     .then((res) =>{

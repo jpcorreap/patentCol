@@ -8,6 +8,10 @@ var app = require("../app");
 var debug = require("debug")("quedate-en-casa:server");
 var http = require("http");
 
+const mu = require("../db/MongoUtils.js");
+const wsu = require("../db/WSUtils.js");
+
+
 /**
  * Get port from environment and store in Express.
  */
@@ -28,6 +32,9 @@ var server = http.createServer(app);
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);
+
+wsu.setupWS(server);
+mu.listenForChanges(wsu.notifyAll);
 
 /**
  * Normalize a port into a number, string, or false.
