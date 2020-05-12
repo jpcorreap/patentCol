@@ -7,3 +7,29 @@ GET http://localhost:3001/getGoogleUtilityPatents
 ###
 
 GET http://localhost:3001/
+
+###
+
+GET http://localhost:3001/solicitudes
+
+###
+
+GET http://localhost:3001/getNasaPatents
+
+###
+
+POST http://localhost:3001/ingresarSolicitud/admin
+
+[
+    {
+        "nombre": "Patente para cuadernos reciclables11",
+        "inventor": "Juan Pablo Correa11",
+        "descripcion": "Mecanismo para crear cuadernos 100% reciclables.q"
+    },
+    {
+        "nombre": "Almohadas inflables1",
+        "inventor": "Juan Sebastián Vaca1",
+        "descripcion": "Mecanismo para inflar las almohadas y ahorrar algodón1"
+    }
+]
+
