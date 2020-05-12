@@ -1,6 +1,7 @@
 const bodyParser = require("body-parser");
 //var cookieParser = require("cookie-parser");
 var session = require("express-session");
+require("dotenv").config();
 
 const configureBcrypt = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -9,7 +10,8 @@ const configureBcrypt = (app) => {
   app.use(
     session({
       key: "user_sid",
-      secret: "goN6DJJC6E287cC77kkdYuNuAyWnz7Q3iZj8",
+      secret: process.env.BCRYPT,
+      //"goN6DJJC6E287cC77kkdYuNuAyWnz7Q3iZj8",
       resave: false,
       saveUninitialized: false,
       cookie: {
