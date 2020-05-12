@@ -57,7 +57,7 @@ router.post("/register", (req, res) => {
         let hashedPassword = bu.Accounts.generateHash(req.body.password);
         bd.users
           .create(req.body.name, hashedPassword)
-          .then(res.redirect("/login"));
+          .then(res.redirect("/"));
       } else {
         console.log(req.body.name, "El usuario ya existe");
         res.redirect("/");
