@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch, Link } from "react-router-dom";
-import PatentsView from "./patents/PatentsView.js";
-import PatentScope from "./patents/PatentScope.js";
+import { Link } from "react-router-dom";
 import PasoTitle from "./PasoTitle.js";
 //import styled from "styled-components";
 //import { useCheckboxState, Checkbox } from "reakit/Checkbox";
@@ -11,21 +9,11 @@ import PasoTitle from "./PasoTitle.js";
   display: block;
   margin: 20px 0px;
   border: 1px solid lightblue;
-`;
-// Creating a custom hook
-function useInput(defaultValue) {
-  const [value, setValue] = useState(defaultValue);
-  function onChange(e) {
-    setValue(e.target.value);
-  }
-  return {
-    value,
-    onChange,
-  };
-}*/
+`;*/
 
 function Paso3() {
-  const [googleUtilityPatents, setGoogleUtilityPatents] = useState([]);
+  const [patentsView, setPatentsView] = useState([]);
+
   const [hasError, setErrors] = useState(false);
 
   /* const tipo = [];
@@ -33,17 +21,36 @@ function Paso3() {
   const checkbox = useCheckboxState({ state: [] });
 */
 
-  // Hace GET de la base de datos
+  // Hace GET de la API
   useEffect(() => {
-    fetch("/getGoogleUtilityPatents")
-      .then((res) => res.json())
-      .then((googleUtilityPatents) => {
-        if (googleUtilityPatents) {
-          setGoogleUtilityPatents(googleUtilityPatents);
-        }
-      });
+    async function fetchPatentsView() {
+      const res = await fetch(
+        'https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2019-01-04"}}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]'
+      );
+      res
+        .json()
+        .then((res) => setPatentsView(res.patents))
+        .catch((err) => setErrors(err));
+    }
+    fetchPatentsView();
   }, []);
-  //console.log(tipo);
+
+  /*
+  PENDIENTE PARA HACER LOS FILTROS:
+
+  Buscar por fecha mayor a:
+  https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2019-01-04"}}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
+
+  Buscar por ÚNICA palabra clave:
+  https://www.patentsview.org/api/patents/query?q={"_text_any":{"patent_title":"pillow"}}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
+
+  Buscar por palabras clave:
+  https://www.patentsview.org/api/patents/query?q={"_and":[{"_text_any":{"patent_title":"pillow"}},{"_text_any":{"patent_title":"inflatable"}}]}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
+
+  Buscar por palabras clave y fecha mayor a:
+  https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"2019-01-04"}},{"_text_any":{"patent_title":"pillow"}},{"_text_any":{"patent_title":"inflatable"}}]}&f=["patent_id","patent_title","patent_kind","patent_abstract","patent_date"]
+  */
+
   return (
     <div className="paso">
       <PasoTitle actual={3} nombre="Estado de la técnica" />
@@ -51,13 +58,11 @@ function Paso3() {
       <br />
       <div className="row text-center">
         <div className="col text-center">
-          <Link to={"paso3/patensview"}>
-            <button className="btn btn-primary">PatentScope</button>
-          </Link>
+          <button className="btn btn-primary">API PatentsView</button>
         </div>
         <div className="col text-center">
-          <Link to={"paso3/patentscope"}>
-            <button className="btn btn-info">PatentsView</button>
+          <Link to={"paso3_scope"}>
+            <button className="btn btn-info">PatentScope</button>
           </Link>
         </div>
         <div className="col text-center">
@@ -72,41 +77,60 @@ function Paso3() {
       </div>
       <br />
 
-      <PatentsView />
-      <Switch>
-        <Route exact path="./patentsview"></Route>
-        <Route exact path="./patentscope">
-          <PatentScope />
-        </Route>
-        <Route exact path="./googleutility">
-          <h3 className="text-info">Google Utility Patents:</h3>
-          <div>
-            <div className="container">
-              <div className="row justify-content-center">
-                {googleUtilityPatents.map((patent) => (
-                  <div
-                    className="card border-info mb-3 col-md-12"
-                    key={patent._id}>
-                    <div className="card-header">
-                      <h4>{patent.title}</h4>
-                    </div>
-                    <div className="card-body">
-                      <p>
-                        <strong>Date:</strong> {patent.date}
-                      </p>
-                      <p className="card-text text-justify">
-                        {patent.abstract}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <div>
+        <div className="row">
+          <div className="col-4">
+            <img
+              id="imagenAHH"
+              src="https://www.patentsview.org/web/img/f34f24560eeb9097579c2be6fa29f5a7.logo_2x.png"></img>
           </div>
-        </Route>
-      </Switch>
-
-      <br />
+          <div className="col text-right">
+            <img
+              src="https://st2.depositphotos.com/4191945/7462/v/950/depositphotos_74627113-stock-illustration-document-funnel-or-filter-logo.jpg"
+              width="100px"></img>
+          </div>
+        </div>
+        <div className="container">
+          <br />
+          <div className="row justify-content-center">
+            <div
+              class="spinner-border text-info"
+              role="status"
+              id="spinnerCarga">
+              <span class="sr-only">Buscando información...</span>
+            </div>
+            {patentsView.map((patent) => (
+              <div
+                className="card border-info mb-3 col-md-12"
+                key={patent.patent_id}>
+                <div className="card-header">
+                  <h4>{patent.patent_title}</h4>
+                </div>
+                <div className="card-body">
+                  <p>
+                    <strong>Type:</strong> {patent.patent_type}
+                    {" - "}
+                    <strong>Date:</strong> {patent.patent_date}
+                    {" - "}
+                    <strong>Inventor(s):</strong>{" "}
+                    {patent.inventors.map((inventor) => {
+                      return (
+                        inventor.inventor_first_name +
+                        " (ID " +
+                        inventor.inventor_key_id +
+                        ") "
+                      );
+                    })}
+                  </p>
+                  <p className="card-text text-justify">
+                    {patent.patent_abstract}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
