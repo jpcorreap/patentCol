@@ -10,7 +10,7 @@ router.get("/login", function (req, res) {
 
 router.post(
   "/login",
-  passport.authenticate("local", { failureRedirect: "/login" }),
+  passport.authenticate("local", { failureRedirect: "/" }),
   function (req, res) {
     res.redirect("/");
   }
@@ -22,7 +22,7 @@ router.post("/login", (req, res) => {
     try {
       console.log("se trajo al usuario", user);
       if (bu.Accounts.validPassword(req.body.password, user.password)) {
-        passport.authenticate("local", { failureRedirect: "/login" }),
+        passport.authenticate("local", { failureRedirect: "/" }),
           function (req, res) {
             res.redirect("/");
           };
