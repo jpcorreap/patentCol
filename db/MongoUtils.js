@@ -47,7 +47,17 @@ function MongoUtils() {
         .findOne({ username: user })
         .finally(() => client.close())
         .then((user) => {
-          console.log("Encontró al usuario ", user);
+          cb(null, user);
+        });
+    });
+
+  mu.users.deleteUser = (userID) =>
+    mu.connect().then((client) => {
+      const usuarios = client.db("patentCol").collection("usuarios");
+      return usuarios
+        .remove({ _id: new ObjectID(userID) })
+        .finally(() => client.close())
+        .then((user) => {
           cb(null, user);
         });
     });
@@ -76,38 +86,37 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
-  mu.createSolicitud = (numero, titulo) =>
-    mu.connect().then((client) =>
+  mu.createSolicitud = (username, body) =>
+    mu.connect().then((client) => {
+      console.log("OJOOOO! LLegó a Crear Solicitud con el body ", body);
+      let nuevoTitulo = "Titulo";
+      let nuevaDescripcion = "Esta es una nueva descripción";
       client
         .db("patentCol")
         .collection("solicitudes")
         .insertOne({
-          numero: numero,
-          titulo: titulo
+          inventor: username,
+          titulo: nuevoTitulo,
+          descripcion: nuevaDescripcion,
         })
-        .finally(() => client.close())
-    );
+        .finally(() => client.close());
+    });
 
-  mu.listenForChanges = (notifyAll) =>{
+  mu.listenForChanges = (notifyAll) => {
     console.log("Listening for changes");
     return mu.connect().then((client) => {
-      const cursor = client
-        .db("patentCol")
-        .collection("solicitudes")
-        .watch();
+      const cursor = client.db("patentCol").collection("solicitudes").watch();
 
-      cursor.on("change", (data)=>{
+      cursor.on("change", (data) => {
         console.log("Mongo change", data);
-        mu.getSolicitudes()
-          .then(docs => {
-            notifyAll(JSON.stringify(docs));
-          });
+        mu.getSolicitudes().then((docs) => {
+          notifyAll(JSON.stringify(docs));
+        });
       });
     });
   };
 
   mu.patents = {};
-
 
   mu.patents.getPatentScope = () =>
     mu.connect().then((client) =>
@@ -115,7 +124,8 @@ function MongoUtils() {
         .db("patentCol")
         .collection("patentscope")
         .find({})
-        .limit(20)
+        .limit(25)
+        .skip(Math.floor(Math.random() * 1500))
         .sort({ _id: -1 })
         .toArray()
         .finally(() => client.close())
@@ -127,7 +137,34 @@ function MongoUtils() {
         .db("patentCol")
         .collection("googleUtilityPatents")
         .find({})
+        .limit(25)
+        .skip(Math.floor(Math.random() * 1500))
+        .sort({ _id: -1 })
+        .toArray()
+        .finally(() => client.close())
+    );
+
+  mu.patents.getGoogleIssuedPatents = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("googleReissuePatents")
+        .find({})
         .limit(20)
+        .skip(Math.floor(Math.random() * 1500))
+        .sort({ _id: -1 })
+        .toArray()
+        .finally(() => client.close())
+    );
+
+  mu.patents.getNasaPatents = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("nasaPatents")
+        .find({})
+        .limit(20)
+        .skip(Math.floor(Math.random() * 1500))
         .sort({ _id: -1 })
         .toArray()
         .finally(() => client.close())

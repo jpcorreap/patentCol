@@ -7,7 +7,7 @@ function Paso3_NasaPatents() {
 
   // Hace GET de la base de datos
   useEffect(() => {
-    fetch("/getGoogleUtilityPatents")
+    fetch("/getNasaPatents")
       .then((res) => res.json())
       .then((googleUtilityPatents) => {
         if (googleUtilityPatents) {
@@ -73,21 +73,30 @@ function Paso3_NasaPatents() {
               <br />
             </div>
             <br />
-            {googleUtilityPatents.map((patent) => (
-              <div
-                className="card border-danger mb-3 col-md-12"
-                key={patent._id}>
-                <div className="card-header">
-                  <h4>{patent.title}</h4>
-                </div>
-                <div className="card-body">
-                  <p>
-                    <strong>Date:</strong> {patent.date}
-                  </p>
-                  <p className="card-text text-justify">{patent.abstract}</p>
-                </div>
+            <div className="container">
+              <div className="row justify-content-center">
+                {googleUtilityPatents.map((patent) => (
+                  <div
+                    className="card border-danger mb-3 col-md-5"
+                    key={patent._id}
+                    style={{ marginRight: "20px" }}>
+                    <div className="card-header">
+                      <h4>{patent.title}</h4>
+                    </div>
+                    <div className="card-body">
+                      <p>
+                        <strong>Expiration date:</strong>{" "}
+                        {patent["expiration-date"]} <strong>Status:</strong>{" "}
+                        {patent.status}
+                      </p>
+                      <p className="card-text text-justify">
+                        <strong>Center: </strong> {patent.center}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

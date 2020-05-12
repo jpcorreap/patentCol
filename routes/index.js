@@ -7,11 +7,16 @@ router.get("/", function (req, res) {
 });
 
 // Data endpoints
-router.get("/solicitudes",  (req, res) => {
-  console.log("12");
+router.get("/solicitudes", (req, res) => {
   db.getSolicitudes().then((docs) => {
-    res.json({succes: true ,docs});
+    res.json({ succes: true, docs });
   });
+});
+
+router.post("/ingresarSolicitud/:username", (req, res) => {
+  db.createSolicitud(req.params.username, req.body).then(
+    res.json({ status: "OK" })
+  );
 });
 
 router.get("/getPatentscope", function (req, res) {
@@ -26,8 +31,14 @@ router.get("/getGoogleUtilityPatents", function (req, res) {
   });
 });
 
-router.get("/getGoogleUtilityPatents", function (req, res) {
-  db.patents.getGoogleUtilityPatents().then((col) => {
+router.get("/getGoogleIssuedPatents", function (req, res) {
+  db.patents.getGoogleIssuedPatents().then((col) => {
+    res.json(col);
+  });
+});
+
+router.get("/getNasaPatents", function (req, res) {
+  db.patents.getNasaPatents().then((col) => {
     res.json(col);
   });
 });

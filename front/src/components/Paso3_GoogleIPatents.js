@@ -7,7 +7,7 @@ function Paso3_GoogleIPatents() {
 
   // Hace GET de la base de datos
   useEffect(() => {
-    fetch("/getGoogleUtilityPatents")
+    fetch("/getGoogleIssuedPatents")
       .then((res) => res.json())
       .then((googleUtilityPatents) => {
         if (googleUtilityPatents) {
@@ -82,7 +82,8 @@ function Paso3_GoogleIPatents() {
                 </div>
                 <div className="card-body">
                   <p>
-                    <strong>Date:</strong> {patent.date}
+                    <strong>Date:</strong> {patent.date} <strong>Type:</strong>{" "}
+                    Issued
                   </p>
                   <p className="card-text text-justify">{patent.abstract}</p>
                 </div>

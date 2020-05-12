@@ -82,7 +82,8 @@ function Paso3_GoogleUPatents() {
                 </div>
                 <div className="card-body">
                   <p>
-                    <strong>Date:</strong> {patent.date}
+                    <strong>Date:</strong> {patent.date} <strong>Type:</strong>{" "}
+                    Utility
                   </p>
                   <p className="card-text text-justify">{patent.abstract}</p>
                 </div>
