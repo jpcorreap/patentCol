@@ -22,6 +22,9 @@ configureBcrypt(app);
 app.use("/", indexRouter);
 app.use("/", passportRoutes);
 
+
+// BORRAR LINEAS COMENTADAS QUE NO SE USAN
+
 // catch 404 and forward to error handler
 // BORRÉ ESTE CÓDIGO PORQUE NO ESTAMOS USANDO HTTP ERRORS
 
