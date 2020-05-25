@@ -13,10 +13,20 @@ router.get("/solicitudes", (req, res) => {
   });
 });
 
+router.get("/latestSearches", (req, res) => {
+  db.getLatestSearches().then((docs) => {
+    res.json({ succes: true, docs });
+  });
+});
+
 router.post("/ingresarSolicitud/:username", (req, res) => {
   db.createSolicitud(req.params.username, req.body).then(
     res.json({ status: "OK" })
   );
+});
+
+router.post("/setSearch", (req, res) => {
+  db.createSearch(req.body).then(res.json({ status: "OK" }));
 });
 
 router.get("/getPatentscope", function (req, res) {

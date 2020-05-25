@@ -1,8 +1,11 @@
 const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
+const moment = require("moment");
+moment.locale("es");
+
 require("dotenv").config();
 
-const url =process.env.MONGOURL;
+const url = process.env.MONGOURL;
 
 function MongoUtils() {
   const mu = {};
@@ -84,6 +87,25 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
+  mu.getLatestSearches = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentCol")
+        .collection("busquedas")
+        .find({})
+        .limit(15)
+        .sort({ _id: -1 })
+        .toArray()
+        .finally(() => client.close())
+        .then((docs) =>
+          docs.map((doc) => ({
+            text: doc.text,
+            date: doc.date,
+            relativeDate: moment(doc.date).fromNow(),
+          }))
+        )
+    );
+
   mu.createSolicitud = (username, body) =>
     mu.connect().then((client) => {
       console.log("OJOOOO! LLegó a Crear Solicitud con el body ", body);
@@ -100,14 +122,25 @@ function MongoUtils() {
         .finally(() => client.close());
     });
 
+  mu.createSearch = (body) =>
+    mu.connect().then((client) => {
+      let text = body.text;
+      let date = moment()._d;
+      return client
+        .db("patentCol")
+        .collection("busquedas")
+        .insertOne({ text, date })
+        .finally(() => client.close());
+    });
+
   mu.listenForChanges = (notifyAll) => {
     console.log("Listening for changes");
     return mu.connect().then((client) => {
-      const cursor = client.db("patentCol").collection("solicitudes").watch();
+      const cursor = client.db("patentCol").collection("busquedas").watch();
 
       cursor.on("change", (data) => {
         console.log("Mongo change", data);
-        mu.getSolicitudes().then((docs) => {
+        mu.getLatestSearches().then((docs) => {
           notifyAll(JSON.stringify(docs));
         });
       });

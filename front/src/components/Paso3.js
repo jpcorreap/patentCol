@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PasoTitle from "./PasoTitle.js";
+import Busqueda from "./Busqueda.js";
 
 function Paso3() {
   const [patentsView, setPatentsView] = useState([]);
@@ -72,6 +73,7 @@ function Paso3() {
       <PasoTitle actual={3} nombre="Estado de la técnica" />
       <br />
       <br />
+      <Busqueda />
       <div className="row text-center">
         <div className="col text-center">
           <button className="btn btn-dark">PatentsView</button>

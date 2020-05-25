@@ -13,10 +13,11 @@ function Home() {
       <br />
 
       <Link to={"/paso1"}>
-        <button className="btn btn-primary">
-          Comenzar
-        </button>
+        <button className="btn btn-primary">Comenzar</button>
       </Link>
+
+      <br />
+      <br />
     </div>
   );
 }
