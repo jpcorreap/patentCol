@@ -54,6 +54,46 @@ function Busqueda(props) {
         date: "2020-05-25T16:40:29.892Z",
         relativeDate: "hace 33 minutos",
       },
+      {
+        text: "prueba 4",
+        date: "2020-05-25T17:08:27.930Z",
+        relativeDate: "hace 5 minutos",
+      },
+      {
+        text: "Prueba 3",
+        date: "2020-05-25T16:53:06.859Z",
+        relativeDate: "hace 20 minutos",
+      },
+      {
+        text: "Buenas noches",
+        date: "2019-05-25T16:52:15.286Z",
+        relativeDate: "hace 30 minutos",
+      },
+      {
+        text: "Chocorramo blanco",
+        date: "2020-05-25T16:40:29.892Z",
+        relativeDate: "hace 33 minutos",
+      },
+      {
+        text: "prueba 4",
+        date: "2020-05-25T17:08:27.930Z",
+        relativeDate: "hace 5 minutos",
+      },
+      {
+        text: "Prueba 3",
+        date: "2020-05-25T16:53:06.859Z",
+        relativeDate: "hace 20 minutos",
+      },
+      {
+        text: "Buenas noches",
+        date: "2019-05-25T16:52:15.286Z",
+        relativeDate: "hace 30 minutos",
+      },
+      {
+        text: "Chocorramo blanco",
+        date: "2020-05-25T16:40:29.892Z",
+        relativeDate: "hace 33 minutos",
+      },
     ]);*/
   }, []);
 
@@ -91,88 +131,140 @@ function Busqueda(props) {
               type="text"
               className="form-control"
               id="busqueda"
-              name="registro"
+              name="busqueda"
               required
             />
           </div>
           <br />
           <div className="row">
-            <div className="col-7">
+            <div className="col-8">
               <div className="row">
                 <div className="col text-left">
                   <h4>
                     <strong>Fuente de los datos</strong>
                   </h4>
-                </div>
-              </div>
-              <br />
-              <div className="row">
-                <div className="col-6">
-                  <h5>APIs:</h5>
-                  <div className="container" style={{ marginLeft: "5px" }}>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    />
-                    <label class="form-check-label" for="defaultCheck1">
-                      PatentsView
-                    </label>
-                    <br />
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    />
-                    <label class="form-check-label" for="defaultCheck1">
-                      European Patent Option
-                    </label>
+
+                  <br />
+                  <div className="row">
+                    <div className="col-6">
+                      <h5>APIs:</h5>
+                      <div className="container" style={{ marginLeft: "5px" }}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="fiterPatentsView"
+                        />
+                        <label
+                          className="form-check-label"
+                          for="fiterPatentsView">
+                          PatentsView
+                        </label>
+                        <br />
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="filterEPO"
+                        />
+                        <label className="form-check-label" for="filterEPO">
+                          European Patent Option
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-6">
+                      <h5>Bases de datos:</h5>
+                      <div className="container" style={{ marginLeft: "5px" }}>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="filterGoogleUPatents"
+                        />
+                        <label
+                          className="form-check-label"
+                          for="filterGoogleUPatents">
+                          Google Utility Patents
+                        </label>
+                        <br />
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="filterGoogleIPatents"
+                        />
+                        <label
+                          className="form-check-label"
+                          for="filterGoogleIPatents">
+                          Google Issued Patents
+                        </label>
+                        <br />
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="filterPatentScope"
+                        />
+                        <label
+                          className="form-check-label"
+                          for="filterPatentScope">
+                          PatentScope
+                        </label>
+                        <br />
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          id="filterNASA"
+                        />
+                        <label className="form-check-label" for="filterNASA">
+                          NASA Patents
+                        </label>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className="col-6">
-                  <h5>Bases de datos:</h5>
-                  <div className="container" style={{ marginLeft: "5px" }}>
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    />
-                    <label class="form-check-label" for="defaultCheck1">
-                      Google Utility Patents
-                    </label>
-                    <br />
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    />
-                    <label class="form-check-label" for="defaultCheck1">
-                      Google Issued Patents
-                    </label>
-                    <br />
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    />
-                    <label class="form-check-label" for="defaultCheck1">
-                      PatentScope
-                    </label>
-                    <br />
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      value=""
-                      id="defaultCheck1"
-                    />
-                    <label class="form-check-label" for="defaultCheck1">
-                      NASA Patents
-                    </label>
+                  <div className="row">
+                    <div className="col text-left">
+                      <h4>
+                        <strong>Filtrado de fechas</strong>
+                      </h4>
+                    </div>
+                  </div>
+                  <div className="row" style={{ padding: "5px" }}>
+                    <div className="col-6">
+                      <div class="form-group">
+                        <label
+                          for="exampleFormControlTextarea1"
+                          className="text-muted">
+                          Aquí iría el date picker:
+                        </label>
+                        <textarea
+                          class="form-control"
+                          id="exampleFormControlTextarea1"
+                          rows="1"></textarea>
+                      </div>
+                    </div>
+                    <div className="col-6">
+                      <br />
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="fechas"
+                          id="fechaPosterior"
+                        />
+                        <label
+                          className="form-check-label"
+                          for="fechaPosterior">
+                          Posteriores
+                        </label>
+                      </div>
+                      <div className="form-check">
+                        <input
+                          className="form-check-input"
+                          type="radio"
+                          name="fechas"
+                          id="fechaIgual"
+                        />
+                        <label className="form-check-label" for="fechaIgual">
+                          Exactamente igual
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -180,19 +272,20 @@ function Busqueda(props) {
             <div className="col">
               <div>{err ? <div>rrre {JSON.stringify(err)} </div> : ""}</div>
               <div className="row">
-                <div className="col text-center">
+                <div className="col text-right">
                   <h4>
-                    <strong>Búsquedas recientes</strong>
+                    <strong>Últimas búsquedas</strong>
                   </h4>
                 </div>
               </div>
               <br />
               <div className="text-left">
-                <div class="form-group">
+                <div className="form-group">
                   <select
                     multiple
-                    class="form-control"
-                    id="exampleFormControlSelect2">
+                    className="form-control"
+                    id="exampleFormControlSelect2"
+                    style={{ height: "270px" }}>
                     {docs.map((d, i) => (
                       <option key={i}>
                         {d.text} {d.relativeDate}
@@ -203,56 +296,72 @@ function Busqueda(props) {
               </div>
             </div>
           </div>
-          <br />
-          <div className="row">
-            <div className="col-10">
-              <div className="row">
-                <div className="col text-left">
-                  <h4>
-                    <strong>Filtrado de fechas</strong>
-                  </h4>
-                </div>
-              </div>
-              <br />
-              <div className="container" style={{ marginLeft: "5px" }}>
-                <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="exampleRadios"
-                    id="exampleRadios1"
-                    value="option1"
-                    checked
-                  />
-                  <label class="form-check-label" for="exampleRadios1">
-                    Fecha exactamente igual a:
-                  </label>
-                  <br />
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="exampleRadios"
-                    id="exampleRadios2"
-                    value="option2"
-                  />
-                  <label class="form-check-label" for="exampleRadios2">
-                    Fecha posterior a:
-                  </label>
-                </div>
-              </div>
-            </div>
-            <div className="col text-right">
-              <button
-                className="btn btn-primary"
-                style={{ width: "100%", height: "100%", fontSize: "1.5em" }}
-                onClick={enviarBusqueda}>
-                Buscar
-              </button>
-            </div>
+          <div className="row text-center">
+            <button
+              className="btn btn-primary btn-lg"
+              style={{ width: "100%", height: "65%", marginBottom: "0px" }}
+              onClick={enviarBusqueda}>
+              Buscar
+            </button>
           </div>
         </div>
       </div>
       <br />
+      <br />
+      <br />
+      <div className="row">
+        <div
+          class="btn-group btn-group-toggle text-center"
+          data-toggle="buttons">
+          <label class="btn btn-secondary active">
+            <input
+              type="radio"
+              name="options"
+              id="option1"
+              autocomplete="off"
+              checked
+            />{" "}
+            Opción 1
+          </label>
+          <label class="btn btn-secondary">
+            <input
+              type="radio"
+              name="options"
+              id="option2"
+              autocomplete="off"
+            />{" "}
+            Opción 2
+          </label>
+          <label class="btn btn-secondary">
+            <input
+              type="radio"
+              name="options"
+              id="option3"
+              autocomplete="off"
+            />{" "}
+            Opción 3
+          </label>
+          <label class="btn btn-secondary">
+            <input
+              type="radio"
+              name="options"
+              id="option2"
+              autocomplete="off"
+            />{" "}
+            Opción 4
+          </label>
+          <label class="btn btn-secondary">
+            <input
+              type="radio"
+              name="options"
+              id="option3"
+              autocomplete="off"
+            />{" "}
+            Opción 5
+          </label>
+        </div>
+      </div>
+
       <br />
       <br />
       <br />
