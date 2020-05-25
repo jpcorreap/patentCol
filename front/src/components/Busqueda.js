@@ -30,8 +30,10 @@ function Busqueda(props) {
         }
         setDocs(res.docs);
       })
-      .catch((err) => setErr(err));
-    /*setDocs([
+      .catch((err) =>
+        setErr(err)
+      ); /*
+    setDocs([
       {
         text: "prueba 4",
         date: "2020-05-25T17:08:27.930Z",
@@ -45,7 +47,7 @@ function Busqueda(props) {
       {
         text: "Buenas noches",
         date: "2019-05-25T16:52:15.286Z",
-        relativeDate: "hace unos deux años",
+        relativeDate: "hace 30 minutos",
       },
       {
         text: "Chocorramo blanco",
@@ -79,7 +81,12 @@ function Busqueda(props) {
       <div className="container">
         <div className="form-group">
           <div className="row">
-            <label>Palabras clave:</label>
+            <h2>
+              <strong>Búsqueda de patentes</strong>
+            </h2>
+          </div>
+          <br />
+          <div className="row">
             <input
               type="text"
               className="form-control"
@@ -87,23 +94,168 @@ function Busqueda(props) {
               name="registro"
               required
             />
-            <button className="btn btn-primary" onClick={enviarBusqueda}>
-              Buscar
-            </button>
+          </div>
+          <br />
+          <div className="row">
+            <div className="col-7">
+              <div className="row">
+                <div className="col text-left">
+                  <h4>
+                    <strong>Fuente de los datos</strong>
+                  </h4>
+                </div>
+              </div>
+              <br />
+              <div className="row">
+                <div className="col-6">
+                  <h5>APIs:</h5>
+                  <div className="container" style={{ marginLeft: "5px" }}>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      PatentsView
+                    </label>
+                    <br />
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      European Patent Option
+                    </label>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <h5>Bases de datos:</h5>
+                  <div className="container" style={{ marginLeft: "5px" }}>
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      Google Utility Patents
+                    </label>
+                    <br />
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      Google Issued Patents
+                    </label>
+                    <br />
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      PatentScope
+                    </label>
+                    <br />
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="defaultCheck1"
+                    />
+                    <label class="form-check-label" for="defaultCheck1">
+                      NASA Patents
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col">
+              <div>{err ? <div>rrre {JSON.stringify(err)} </div> : ""}</div>
+              <div className="row">
+                <div className="col text-center">
+                  <h4>
+                    <strong>Búsquedas recientes</strong>
+                  </h4>
+                </div>
+              </div>
+              <br />
+              <div className="text-left">
+                <div class="form-group">
+                  <select
+                    multiple
+                    class="form-control"
+                    id="exampleFormControlSelect2">
+                    {docs.map((d, i) => (
+                      <option key={i}>
+                        {d.text} {d.relativeDate}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div className="row">
+            <div className="col-10">
+              <div className="row">
+                <div className="col text-left">
+                  <h4>
+                    <strong>Filtrado de fechas</strong>
+                  </h4>
+                </div>
+              </div>
+              <br />
+              <div className="container" style={{ marginLeft: "5px" }}>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exampleRadios"
+                    id="exampleRadios1"
+                    value="option1"
+                    checked
+                  />
+                  <label class="form-check-label" for="exampleRadios1">
+                    Fecha exactamente igual a:
+                  </label>
+                  <br />
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exampleRadios"
+                    id="exampleRadios2"
+                    value="option2"
+                  />
+                  <label class="form-check-label" for="exampleRadios2">
+                    Fecha posterior a:
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div className="col text-right">
+              <button
+                className="btn btn-primary"
+                style={{ width: "100%", height: "100%", fontSize: "1.5em" }}
+                onClick={enviarBusqueda}>
+                Buscar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div>{err ? <div>rrre {JSON.stringify(err)} </div> : ""}</div>
-      <h2>Ver las últimas 15 búsquedas:</h2>
-      <div className="text-left">
-        {docs.map((d, i) => (
-          <div>
-            <p key={i}>
-              {d.text} {d.relativeDate}
-            </p>
-          </div>
-        ))}
-      </div>
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

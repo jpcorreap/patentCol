@@ -73,7 +73,9 @@ function Paso3() {
       <PasoTitle actual={3} nombre="Estado de la técnica" />
       <br />
       <br />
-      <Busqueda />
+      <div className="container">
+        <Busqueda />
+      </div>
       <div className="row text-center">
         <div className="col text-center">
           <button className="btn btn-dark">PatentsView</button>
