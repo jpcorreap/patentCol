@@ -103,7 +103,11 @@ function Busqueda(props) {
     let data = {
       text: document.getElementById("busqueda").value,
     };
-    console.log(url);
+
+    props.seteadorDeConsultas({
+      text: document.getElementById("busqueda").value,
+      patentsview: true,
+    });
 
     fetch(url, {
       method: "POST", // or 'PUT'

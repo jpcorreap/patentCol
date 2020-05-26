@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home.js";
 import Busqueda from "./Busqueda.js";
@@ -12,6 +12,8 @@ import Paso3GoogleIPatents from "./Paso3_GoogleIPatents.js";
 import Paso3NasaPatents from "./Paso3_NasaPatents.js";
 
 function Rutas(props) {
+  const [query, setQuery] = useState({});
+
   return (
     <div>
       <Switch>
@@ -20,11 +22,16 @@ function Rutas(props) {
         </Route>
 
         <Route exact path="/search">
-          <Busqueda />
+          <button
+            className="btn btn-success"
+            onClick={() => console.log(query)}>
+            Imprimir query en la consola
+          </button>
+          <Busqueda seteadorDeConsultas={(objeto) => setQuery(objeto)} />
         </Route>
 
         <Route exact path="/results/patentsview">
-          <Paso3PatentsView />
+          <Paso3PatentsView query={query} />
         </Route>
 
         <Route exact path="/results/patentscope">

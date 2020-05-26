@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import PasoTitle from "./PasoTitle.js";
 import Busqueda from "./Busqueda.js";
 
-function Paso3PatentsView() {
+function Paso3PatentsView(props) {
   const [patentsView, setPatentsView] = useState([]);
 
+  console.log("Está en PatentsView con el query ", props.query);
   // Actualiza las patentes con la query dada por el usuario
   const actualizarConsulta = () => {
     let palabrasClave = document.getElementById("barraPalabras").value;
