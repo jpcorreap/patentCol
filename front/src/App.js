@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar.js";
-import Pasos from "./components/Pasos.js";
+import Rutas from "./components/Rutas.js";
 import "./App.css";
 
 function App() {
@@ -27,9 +27,9 @@ function App() {
       <br />
       <div className="container">
         {user ? (
-          <Pasos autenticado={true} username={user.username} />
+          <Rutas autenticado={true} username={user.username} />
         ) : (
-          <Pasos autenticado={false} />
+          <Rutas autenticado={false} />
         )}
       </div>
     </div>

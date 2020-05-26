@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function Busqueda(props) {
   const [docs, setDocs] = useState([]);
@@ -19,7 +20,7 @@ function Busqueda(props) {
   };
 
   useEffect(() => {
-    setupWS();
+    /*setupWS();
 
     fetch("/latestSearches")
       .then((res) => res.json())
@@ -32,7 +33,7 @@ function Busqueda(props) {
       })
       .catch((err) =>
         setErr(err)
-      ); /*
+      ); */
     setDocs([
       {
         text: "prueba 4",
@@ -94,7 +95,7 @@ function Busqueda(props) {
         date: "2020-05-25T16:40:29.892Z",
         relativeDate: "hace 33 minutos",
       },
-    ]);*/
+    ]);
   }, []);
 
   const enviarBusqueda = () => {
@@ -313,16 +314,18 @@ function Busqueda(props) {
         <div
           class="btn-group btn-group-toggle text-center"
           data-toggle="buttons">
-          <label class="btn btn-secondary active">
-            <input
-              type="radio"
-              name="options"
-              id="option1"
-              autocomplete="off"
-              checked
-            />{" "}
-            Option 1
-          </label>
+          <Link to={"results/patentsview"}>
+            <label class="btn btn-secondary active">
+              <input
+                type="radio"
+                name="options"
+                id="option1"
+                autocomplete="off"
+                checked
+              />{" "}
+              Option 1
+            </label>
+          </Link>
           <label class="btn btn-secondary">
             <input
               type="radio"
