@@ -17,7 +17,8 @@ function Paso5() {
       <div className="img-container text-center">
         <img
           src="https://raw.githubusercontent.com/jpcorreap/patentCol/master/front/src/PantallazoSIPI.png"
-          width="60%"></img>
+          width="60%"
+          alt=" "></img>
       </div>
       <br />
     </div>

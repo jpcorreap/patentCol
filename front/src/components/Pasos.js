@@ -8,10 +8,10 @@ import ProgressBar from "./ProgressBar.js";
 import Paso1 from "./Paso1.js";
 import Paso2 from "./Paso2.js";
 import Paso3 from "./Paso3.js";
-import Paso3_PatentScope from "./Paso3_PatentScope.js";
-import Paso3_GoogleUPatents from "./Paso3_GoogleUPatents.js";
-import Paso3_GoogleIPatents from "./Paso3_GoogleIPatents.js";
-import Paso3_NasaPatents from "./Paso3_NasaPatents.js";
+import Paso3PatentScope from "./Paso3_PatentScope.js";
+import Paso3GoogleUPatents from "./Paso3_GoogleUPatents.js";
+import Paso3GoogleIPatents from "./Paso3_GoogleIPatents.js";
+import Paso3NasaPatents from "./Paso3_NasaPatents.js";
 import Paso4 from "./Paso4.js";
 import Paso5 from "./Paso5.js";
 import Paso6 from "./Paso6.js";
@@ -58,22 +58,22 @@ function Pasos(props) {
 
         <Route exact path="/paso3_scope">
           <ProgressBar avance={3} />
-          <Paso3_PatentScope />
+          <Paso3PatentScope />
         </Route>
 
         <Route exact path="/paso3_googleutility">
           <ProgressBar avance={3} />
-          <Paso3_GoogleUPatents />
+          <Paso3GoogleUPatents />
         </Route>
 
         <Route exact path="/paso3_googleissued">
           <ProgressBar avance={3} />
-          <Paso3_GoogleIPatents />
+          <Paso3GoogleIPatents />
         </Route>
 
         <Route exact path="/paso3_nasa">
           <ProgressBar avance={3} />
-          <Paso3_NasaPatents />
+          <Paso3NasaPatents />
         </Route>
 
         <Route exact path="/paso4">

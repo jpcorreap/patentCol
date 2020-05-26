@@ -1,8 +1,6 @@
 import React from "react";
 import bandera from "../Bandera Colombia.png";
-import { Link, Route, Switch } from "react-router-dom";
-import Login from "./Login.js";
-import Register from "./Register.js";
+import { Link } from "react-router-dom";
 
 function Navbar(props) {
   return (
@@ -49,29 +47,19 @@ function Navbar(props) {
             id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item dropdown">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    id="navbarDropdown"
-                    role="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <strong>{props.username}</strong>
-                  </a>
-                  <div
-                    className="dropdown-menu"
-                    aria-labelledby="navbarDropdown"
-                  >
-                    <a className="dropdown-item" href="/logout">
-                      Cerrar sesión
-                    </a>
-                  </div>
-                </li>
-              <li className="nav-item">
-                <Link to={"/solicitudes"} className="nav-link">
-                  <strong>Solicitudes</strong>
-                </Link>
+                <button
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                  <strong>{props.username}</strong>
+                </button>
+                <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <button className="dropdown-item" href="auth/logout">
+                    Sing out
+                  </button>
+                </div>
               </li>
             </ul>
           </div>
