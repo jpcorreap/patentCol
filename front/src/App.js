@@ -7,7 +7,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch("/getUser")
+    fetch("auth/getUser")
       .then((res) => res.json())
       .then((user) => {
         if (user) {

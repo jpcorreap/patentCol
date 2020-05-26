@@ -5,7 +5,7 @@ const Register = () => {
     <div className="Register">
       <div className="container" id="menuRegister">
         <div className="container">
-          <form action="/register" method="post">
+          <form action="auth/register" method="post">
             <div className="form-group">
               <div className="row">
                 <label>Usuario:</label>

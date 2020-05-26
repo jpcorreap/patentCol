@@ -122,7 +122,7 @@ function Busqueda(props) {
         <div className="form-group">
           <div className="row">
             <h2>
-              <strong>Búsqueda de patentes</strong>
+              <strong>Search patents</strong>
             </h2>
           </div>
           <br />
@@ -141,7 +141,7 @@ function Busqueda(props) {
               <div className="row">
                 <div className="col text-left">
                   <h4>
-                    <strong>Fuente de los datos</strong>
+                    <strong>Source:</strong>
                   </h4>
 
                   <br />
@@ -171,7 +171,7 @@ function Busqueda(props) {
                       </div>
                     </div>
                     <div className="col-6">
-                      <h5>Bases de datos:</h5>
+                      <h5>Databases:</h5>
                       <div className="container" style={{ marginLeft: "5px" }}>
                         <input
                           className="form-check-input"
@@ -220,7 +220,7 @@ function Busqueda(props) {
                   <div className="row">
                     <div className="col text-left">
                       <h4>
-                        <strong>Filtrado de fechas</strong>
+                        <strong>Filter by date:</strong>
                       </h4>
                     </div>
                   </div>
@@ -230,7 +230,7 @@ function Busqueda(props) {
                         <label
                           for="exampleFormControlTextarea1"
                           className="text-muted">
-                          Aquí iría el date picker:
+                          Insert date (YYYY-MM-DD):
                         </label>
                         <textarea
                           class="form-control"
@@ -250,7 +250,7 @@ function Busqueda(props) {
                         <label
                           className="form-check-label"
                           for="fechaPosterior">
-                          Posteriores
+                          After
                         </label>
                       </div>
                       <div className="form-check">
@@ -261,7 +261,7 @@ function Busqueda(props) {
                           id="fechaIgual"
                         />
                         <label className="form-check-label" for="fechaIgual">
-                          Exactamente igual
+                          Equal
                         </label>
                       </div>
                     </div>
@@ -274,7 +274,7 @@ function Busqueda(props) {
               <div className="row">
                 <div className="col text-right">
                   <h4>
-                    <strong>Últimas búsquedas</strong>
+                    <strong>Latest searches</strong>
                   </h4>
                 </div>
               </div>
@@ -301,7 +301,7 @@ function Busqueda(props) {
               className="btn btn-primary btn-lg"
               style={{ width: "100%", height: "65%", marginBottom: "0px" }}
               onClick={enviarBusqueda}>
-              Buscar
+              Search
             </button>
           </div>
         </div>
@@ -321,7 +321,7 @@ function Busqueda(props) {
               autocomplete="off"
               checked
             />{" "}
-            Opción 1
+            Option 1
           </label>
           <label class="btn btn-secondary">
             <input
@@ -330,7 +330,7 @@ function Busqueda(props) {
               id="option2"
               autocomplete="off"
             />{" "}
-            Opción 2
+            Option 2
           </label>
           <label class="btn btn-secondary">
             <input
@@ -339,7 +339,7 @@ function Busqueda(props) {
               id="option3"
               autocomplete="off"
             />{" "}
-            Opción 3
+            Option 3
           </label>
           <label class="btn btn-secondary">
             <input
@@ -348,7 +348,7 @@ function Busqueda(props) {
               id="option2"
               autocomplete="off"
             />{" "}
-            Opción 4
+            Option 4
           </label>
           <label class="btn btn-secondary">
             <input
@@ -357,7 +357,7 @@ function Busqueda(props) {
               id="option3"
               autocomplete="off"
             />{" "}
-            Opción 5
+            Option 5
           </label>
         </div>
       </div>

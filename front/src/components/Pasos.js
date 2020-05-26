@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./Home.js";
+import Busqueda from "./Busqueda.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
 import ProgressBar from "./ProgressBar.js";
@@ -22,6 +23,10 @@ function Pasos(props) {
       <Switch>
         <Route exact path="/">
           <Home />
+        </Route>
+
+        <Route exact path="/search">
+          <Busqueda />
         </Route>
 
         <Route exact path="/login">

@@ -5,7 +5,7 @@ const Login = () => {
     <div className="Login">
       <div className="container" id="menuLogin">
         <div className="container">
-          <form action="/login" method="post">
+          <form action="auth/login" method="post">
             <div className="form-group">
               <div className="row">
                 <label>Usuario:</label>
@@ -23,7 +23,7 @@ const Login = () => {
               </div>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-warning" >
+              <button type="submit" className="btn btn-warning">
                 Ingresar
               </button>
             </div>

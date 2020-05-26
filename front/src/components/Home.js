@@ -5,19 +5,29 @@ function Home() {
   return (
     <div>
       <div className="row">
-        <h1>PatentCol</h1>
+        <h1>Patent Search</h1>
       </div>
       <div className="row">
-        <p>Patentar nunca había sido tan fácil</p>
+        <div className="col-5 text-justify">
+          <p>
+            While patenting, the State of Art is essential. We provide a
+            truthful and powerful tool to search over 50.000 patents among a
+            diversity of databases and APIs.
+          </p>
+        </div>
       </div>
       <br />
 
-      <Link to={"/paso1"}>
-        <button className="btn btn-primary">Comenzar</button>
+      <Link to={"/search"}>
+        <button className="btn btn-primary">Get started!</button>
       </Link>
 
       <br />
       <br />
+      <p>
+        Are you Colombian? You might be interested on our{" "}
+        <Link to={"/paso1"}>How-to-do patent process</Link>
+      </p>
     </div>
   );
 }

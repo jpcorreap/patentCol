@@ -20,20 +20,6 @@ configurePassport(app);
 configureBcrypt(app);
 
 app.use("/", indexRouter);
-app.use("/", passportRoutes);
-
-// catch 404 and forward to error handler
-// BORRÉ ESTE CÓDIGO PORQUE NO ESTAMOS USANDO HTTP ERRORS
-
-// error handler
-/*app.use(function (err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});*/
+app.use("/auth/", passportRoutes);
 
 module.exports = app;
