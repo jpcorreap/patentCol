@@ -35,8 +35,20 @@ router.get("/getPatentscope", function (req, res) {
   });
 });
 
+router.get("/getPatents/getPatentscope", function (req, res) {
+  db.patents.getPatentScopeSpecific().then((col) => {
+    res.json(col);
+  });
+});
+
 router.get("/getGoogleUtilityPatents", function (req, res) {
   db.patents.getGoogleUtilityPatents().then((col) => {
+    res.json(col);
+  });
+});
+
+router.get("/getPatents/getGoogleUtilityPatents", function (req, res) {
+  db.patents.getGoogleUtilityPatentsSpecific().then((col) => {
     res.json(col);
   });
 });
@@ -47,10 +59,23 @@ router.get("/getGoogleIssuedPatents", function (req, res) {
   });
 });
 
+router.get("/getPatents/getGoogleIssuedPatents", function (req, res) {
+  db.patents.getGoogleIssuedPatentsSpecific().then((col) => {
+    res.json(col);
+  });
+});
+
 router.get("/getNasaPatents", function (req, res) {
   db.patents.getNasaPatents().then((col) => {
     res.json(col);
   });
 });
+
+router.get("/getPatents/getNasaPatents", function (req, res) {
+  db.patents.getNasaPatentsSpecific().then((col) => {
+    res.json(col);
+  });
+});
+
 
 module.exports = router;

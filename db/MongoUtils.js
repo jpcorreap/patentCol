@@ -5,7 +5,7 @@ moment.locale("es");
 
 require("dotenv").config();
 
-const url = process.env.MONGOURL;
+const url = process.env.MONGODB;
 
 function MongoUtils() {
   const mu = {};
@@ -59,6 +59,7 @@ function MongoUtils() {
         .remove({ _id: new ObjectID(userID) })
         .finally(() => client.close())
         .then((user) => {
+          // eslint-disable-next-line no-undef
           cb(null, user);
         });
     });
@@ -162,6 +163,16 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
+  mu.patents.getPatentScopeSpecific = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentSearch")
+        .collection("patentscope")
+        .find({$text:{$search: "\"Beam Wire\""}})
+        .toArray()
+        .finally(() => client.close())
+    );  
+
   mu.patents.getGoogleUtilityPatents = () =>
     mu.connect().then((client) =>
       client
@@ -171,6 +182,16 @@ function MongoUtils() {
         .limit(25)
         .skip(Math.floor(Math.random() * 1500))
         .sort({ _id: -1 })
+        .toArray()
+        .finally(() => client.close())
+    );
+
+  mu.patents.getGoogleUtilityPatentsSpecific = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentSearch")
+        .collection("googleUtilityPatents")
+        .find({$text:{$search: "\"Beam Wire\""}})
         .toArray()
         .finally(() => client.close())
     );
@@ -188,6 +209,16 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
+  mu.patents.getGoogleIssuedPatentsSpecific = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentSearch")
+        .collection("googleReissuePatents")
+        .find({$text:{$search: "\"Beam Wire\""}})
+        .toArray()
+        .finally(() => client.close())
+    );
+
   mu.patents.getNasaPatents = () =>
     mu.connect().then((client) =>
       client
@@ -200,6 +231,17 @@ function MongoUtils() {
         .toArray()
         .finally(() => client.close())
     );
+
+  mu.patents.getNasaPatentsSpecific = () =>
+    mu.connect().then((client) =>
+      client
+        .db("patentSearch")
+        .collection("nasaPatents")
+        .find({$text:{$search: "\"Beam Wire\""}})
+        .toArray()
+        .finally(() => client.close())
+    );
+
 
   return mu;
 }
