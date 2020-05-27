@@ -5,7 +5,7 @@ moment.locale("es");
 
 require("dotenv").config();
 
-const url = process.env.MONGODB;
+const url = "mongodb+srv://vaca:vaca123@cluster0-3lhwp.mongodb.net/test?retryWrites=true&w=majority";
 
 function MongoUtils() {
   const mu = {};
@@ -150,6 +150,16 @@ function MongoUtils() {
 
   mu.patents = {};
 
+  mu.patents.getSpecific = (collection, query) =>
+    mu.connect().then((client) =>
+      client
+        .db("patentSearch")
+        .collection(collection)
+        .find({query})
+        .toArray()
+        .finally(() => client.close())
+    );  
+
   mu.patents.getPatentScope = () =>
     mu.connect().then((client) =>
       client
@@ -222,7 +232,7 @@ function MongoUtils() {
   mu.patents.getNasaPatents = () =>
     mu.connect().then((client) =>
       client
-        .db("patentCol")
+        .db("patentSearch")
         .collection("nasaPatents")
         .find({})
         .limit(20)
@@ -237,7 +247,7 @@ function MongoUtils() {
       client
         .db("patentSearch")
         .collection("nasaPatents")
-        .find({$text:{$search: "\"Beam Wire\""}})
+        .find({$text:{$search: "\"Wire\""}})
         .toArray()
         .finally(() => client.close())
     );
