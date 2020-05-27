@@ -5,7 +5,7 @@ moment.locale("es");
 
 require("dotenv").config();
 
-const url = "mongodb+srv://vaca:vaca123@cluster0-3lhwp.mongodb.net/test?retryWrites=true&w=majority";
+const url = process.env.MONGODB;
 
 function MongoUtils() {
   const mu = {};
