@@ -5,7 +5,7 @@ moment.locale("es");
 
 require("dotenv").config();
 
-const url = process.env.MONGODB;
+const url = process.env.MONGOURL;
 
 function MongoUtils() {
   const mu = {};
@@ -155,10 +155,10 @@ function MongoUtils() {
       client
         .db("patentSearch")
         .collection(collection)
-        .find({query})
+        .find({ query })
         .toArray()
         .finally(() => client.close())
-    );  
+    );
 
   mu.patents.getPatentScope = () =>
     mu.connect().then((client) =>
@@ -178,10 +178,10 @@ function MongoUtils() {
       client
         .db("patentSearch")
         .collection("patentscope")
-        .find({$text:{$search: "\"Beam Wire\""}})
+        .find({ $text: { $search: '"Beam Wire"' } })
         .toArray()
         .finally(() => client.close())
-    );  
+    );
 
   mu.patents.getGoogleUtilityPatents = () =>
     mu.connect().then((client) =>
@@ -201,7 +201,7 @@ function MongoUtils() {
       client
         .db("patentSearch")
         .collection("googleUtilityPatents")
-        .find({$text:{$search: "\"Beam Wire\""}})
+        .find({ $text: { $search: '"Beam Wire"' } })
         .toArray()
         .finally(() => client.close())
     );
@@ -224,7 +224,7 @@ function MongoUtils() {
       client
         .db("patentSearch")
         .collection("googleReissuePatents")
-        .find({$text:{$search: "\"Beam Wire\""}})
+        .find({ $text: { $search: '"Beam Wire"' } })
         .toArray()
         .finally(() => client.close())
     );
@@ -247,11 +247,10 @@ function MongoUtils() {
       client
         .db("patentSearch")
         .collection("nasaPatents")
-        .find({$text:{$search: "\"Wire\""}})
+        .find({ $text: { $search: '"Wire"' } })
         .toArray()
         .finally(() => client.close())
     );
-
 
   return mu;
 }
