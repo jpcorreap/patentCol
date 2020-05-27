@@ -9,6 +9,7 @@ import BotonesCambio from "./BotonesCambio.js";
 import Spinner from "./Spinner.js";
 
 function Resultados(props) {
+  const [patentsView, setPatentsView] = useState([]);
   const [googleUtilityPatents, setGoogleUtilityPatents] = useState([]);
   const [googleIssuedPatents, setgoogleIssuedPatentss] = useState([]);
   const [nasaPatents, setNasaPatents] = useState([]);
@@ -59,21 +60,40 @@ function Resultados(props) {
         </p>
         <br />
         <br />
-        <Spinner mensaje="Fetching all data..." />
         <br />
         <br />
         <br />
-        <p>
-          Vaca, desde este componente Resultados es donde le digo que hay que
-          hacer los fetchs correspondientes al back, todo según el props.query,
-          y luego mostrar los botones de abajo según la info que se trajo del
-          back
-        </p>
-        <BotonesCambio actual={null} />
+
+        {Array.isArray(patentsView) && patentsView.length ? (
+          <div style={{ margin: "50px" }}>
+            <div className="row">
+              <div className="col-12 text-center">
+                <p>
+                  Choose one of your selected sources to display query results:
+                </p>
+              </div>
+            </div>
+            <BotonesCambio cualesSeMuestran={props.query.sources} actual={""} />
+            <h3>Se le tiene la info mi pez:</h3>
+            patentsView: {patentsView[0]}
+          </div>
+        ) : (
+          <div>
+            <Spinner mensaje="Fetching data from PatentsView..." />
+            <button
+              onClick={() => setPatentsView(["Kelly pero qué mondá"])}
+              className="btn btn-success">
+              Simular que ya hizo fetch
+            </button>
+          </div>
+        )}
       </Route>
 
       <Route exact path="/results/patentsview">
-        <BotonesCambio actual={"PatentsView"} />
+        <BotonesCambio
+          cualesSeMuestran={props.query.sources}
+          actual={"PatentsView"}
+        />
         <Paso3PatentsView />
       </Route>
 
@@ -83,17 +103,26 @@ function Resultados(props) {
       </Route>
 
       <Route exact path="/results/googleutility">
-        <BotonesCambio actual={"GoogleUPatents"} />
+        <BotonesCambio
+          cualesSeMuestran={props.query.sources}
+          actual={"GoogleUPatents"}
+        />
         <Paso3GoogleUPatents />
       </Route>
 
       <Route exact path="/results/googleissued">
-        <BotonesCambio actual={"GoogleIPatents"} />
+        <BotonesCambio
+          cualesSeMuestran={props.query.sources}
+          actual={"GoogleIPatents"}
+        />
         <Paso3GoogleIPatents />
       </Route>
 
       <Route exact path="/results/nasa">
-        <BotonesCambio actual={"NasaPatents"} />
+        <BotonesCambio
+          cualesSeMuestran={props.query.sources}
+          actual={"NasaPatents"}
+        />
         <Paso3NasaPatents />
       </Route>
     </div>

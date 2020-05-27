@@ -80,12 +80,14 @@ function Busqueda(props) {
 
   return (
     <div>
-      <div className="container">
+      <div className="container" style={{ marginTop: "-38px" }}>
         <div className="form-group">
           <div className="row">
-            <h2>
-              <strong>Search patents</strong>
-            </h2>
+            <div className="col text-center">
+              <h2>
+                <strong>Patents Search</strong>
+              </h2>
+            </div>
           </div>
           <br />
           <div className="row">
@@ -94,20 +96,25 @@ function Busqueda(props) {
               className="form-control"
               id="busqueda"
               name="busqueda"
+              placeholder="Key words"
               required
+              focus={true}
             />
           </div>
           <br />
           <div className="row">
+            <br />
             <div className="col-8">
               <div className="row">
+                <div className="col-12">
+                  <tituloFiltro style={{ marginLeft: "-10px" }}>
+                    Filter
+                  </tituloFiltro>
+                </div>
+                <br />
                 <div className="col text-left">
-                  <h4>
-                    <strong>Source:</strong>
-                  </h4>
-
-                  <br />
-                  <div className="row">
+                  <descripcionFiltro>By source</descripcionFiltro>
+                  <div className="row formularioGenerico">
                     <div className="col-6">
                       <h5>APIs:</h5>
                       <div className="container" style={{ marginLeft: "5px" }}>
@@ -128,7 +135,7 @@ function Busqueda(props) {
                           id="filterEPO"
                         />
                         <label className="form-check-label" htmlFor="filterEPO">
-                          European Patent Option
+                          European Patent Office
                         </label>
                       </div>
                     </div>
@@ -183,24 +190,16 @@ function Busqueda(props) {
                   </div>
                   <div className="row">
                     <div className="col text-left">
-                      <h4>
-                        <strong>Filter by date:</strong>
-                      </h4>
-                    </div>
-                  </div>
-                  <div className="row" style={{ padding: "5px" }}>
-                    <div className="col-6">
+                      <descripcionFiltro>By date</descripcionFiltro>
                       <div className="form-group">
-                        <label htmlFor="fecha" className="text-muted">
-                          Insert date (YYYY-MM-DD):
-                        </label>
-                        <textarea
+                        <input
                           className="form-control"
                           id="fecha"
-                          rows="1"></textarea>
+                          placeholder="YYYY-MM-DD"
+                        />
                       </div>
                     </div>
-                    <div className="col-6">
+                    <div className="col-6 formularioGenerico2">
                       <br />
                       <div className="form-check">
                         <input
@@ -230,45 +229,69 @@ function Busqueda(props) {
                       </div>
                     </div>
                   </div>
+                  <div className="row">
+                    <div className="col text-left">
+                      <descripcionFiltro>By author</descripcionFiltro>
+                    </div>
+                  </div>
+                  <div className="row" style={{ padding: "5px" }}>
+                    <div className="col-6">
+                      <div className="form-group">
+                        <input
+                          className="form-control"
+                          id="author"
+                          placeholder="Author's name"
+                        />
+                      </div>
+                    </div>{" "}
+                  </div>
                 </div>
               </div>
             </div>
             <div className="col">
-              <div>{err ? <div>rrre {JSON.stringify(err)} </div> : ""}</div>
               <div className="row">
                 <div className="col text-right">
-                  <h4>
-                    <strong>Latest searches</strong>
-                  </h4>
+                  <tituloFiltro>View latest searches</tituloFiltro>
                 </div>
               </div>
-              <br />
-              <div className="text-left">
-                <div className="form-group">
-                  <select
-                    multiple
-                    className="form-control"
-                    id="exampleFormControlSelect2"
-                    style={{ height: "270px" }}>
-                    {docs.map((d, i) => (
-                      <option key={i}>
-                        {d.text} {d.relativeDate}
-                      </option>
-                    ))}
-                  </select>
+              {err ? (
+                <div className="text-right" style={{ marginBottom: "290px" }}>
+                  Error fetching data from GET /latestSearches:{" "}
+                  {JSON.stringify(err)}{" "}
+                </div>
+              ) : (
+                <div>
+                  <br />
+                  <div className="text-left">
+                    <div className="form-group">
+                      <select
+                        multiple
+                        className="form-control"
+                        id="exampleFormControlSelect2"
+                        style={{ height: "270px" }}>
+                        {docs.map((d, i) => (
+                          <option key={i}>
+                            {d.text} {d.relativeDate}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div className="row">
+                <div className="col text-center">
+                  <Link to={"/results"}>
+                    <button
+                      className="btn btn-primary"
+                      style={{ width: "100%", height: "100%" }}
+                      onClick={enviarBusqueda}>
+                      Search
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="row text-right">
-            <Link to={"/results"}>
-              <button
-                className="btn btn-info"
-                style={{ width: "100%", height: "100%" }}
-                onClick={enviarBusqueda}>
-                Search
-              </button>
-            </Link>
           </div>
         </div>
       </div>

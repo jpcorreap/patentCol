@@ -19,3 +19,26 @@
 #imagenAHH {
   background-color: gray;
 }
+
+descripcionFiltro {
+  font-weight: 600;
+  color: gray;
+  font-size: 1.2em;
+}
+
+tituloFiltro {
+  font-weight: bolder;
+  color: black;
+  font-size: 1.5em;
+}
+
+.form-group,
+.formularioGenerico {
+  margin: 15px;
+  margin-top: 8px;
+}
+
+.formularioGenerico2 {
+  margin: 15px;
+  margin-top: 15px;
+}
