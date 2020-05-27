@@ -7,21 +7,17 @@ function Busqueda(props) {
 
   const setupWS = () => {
     const wss = new WebSocket("ws://localhost:3001");
-
     wss.onopen = () => {
       console.log("WS client connected");
-
       wss.onmessage = (msg) => {
         console.log("WS got message", msg);
-
         setDocs(JSON.parse(msg.data));
       };
     };
   };
 
   useEffect(() => {
-    /*setupWS();
-
+    setupWS();
     fetch("/latestSearches")
       .then((res) => res.json())
       .then((res) => {
@@ -31,71 +27,7 @@ function Busqueda(props) {
         }
         setDocs(res.docs);
       })
-      .catch((err) =>
-        setErr(err)
-      ); */
-    setDocs([
-      {
-        text: "prueba 4",
-        date: "2020-05-25T17:08:27.930Z",
-        relativeDate: "hace 5 minutos",
-      },
-      {
-        text: "Prueba 3",
-        date: "2020-05-25T16:53:06.859Z",
-        relativeDate: "hace 20 minutos",
-      },
-      {
-        text: "Buenas noches",
-        date: "2019-05-25T16:52:15.286Z",
-        relativeDate: "hace 30 minutos",
-      },
-      {
-        text: "Chocorramo blanco",
-        date: "2020-05-25T16:40:29.892Z",
-        relativeDate: "hace 33 minutos",
-      },
-      {
-        text: "prueba 4",
-        date: "2020-05-25T17:08:27.930Z",
-        relativeDate: "hace 5 minutos",
-      },
-      {
-        text: "Prueba 3",
-        date: "2020-05-25T16:53:06.859Z",
-        relativeDate: "hace 20 minutos",
-      },
-      {
-        text: "Buenas noches",
-        date: "2019-05-25T16:52:15.286Z",
-        relativeDate: "hace 30 minutos",
-      },
-      {
-        text: "Chocorramo blanco",
-        date: "2020-05-25T16:40:29.892Z",
-        relativeDate: "hace 33 minutos",
-      },
-      {
-        text: "prueba 4",
-        date: "2020-05-25T17:08:27.930Z",
-        relativeDate: "hace 5 minutos",
-      },
-      {
-        text: "Prueba 3",
-        date: "2020-05-25T16:53:06.859Z",
-        relativeDate: "hace 20 minutos",
-      },
-      {
-        text: "Buenas noches",
-        date: "2019-05-25T16:52:15.286Z",
-        relativeDate: "hace 30 minutos",
-      },
-      {
-        text: "Chocorramo blanco",
-        date: "2020-05-25T16:40:29.892Z",
-        relativeDate: "hace 33 minutos",
-      },
-    ]);
+      .catch((err) => setErr(err));
   }, []);
 
   const enviarBusqueda = () => {
@@ -104,10 +36,35 @@ function Busqueda(props) {
       text: document.getElementById("busqueda").value,
     };
 
-    props.seteadorDeConsultas({
+    let fuentes = [];
+
+    if (document.getElementById("fiterPatentsView").checked) {
+      fuentes.push("PatentsView");
+    }
+    if (document.getElementById("filterEPO").checked) {
+      fuentes.push("EPO");
+    }
+    if (document.getElementById("filterGoogleUPatents").checked) {
+      fuentes.push("GoogleUPatents");
+    }
+    if (document.getElementById("filterGoogleIPatents").checked) {
+      fuentes.push("GoogleIPatents");
+    }
+    if (document.getElementById("filterPatentScope").checked) {
+      fuentes.push("PatentScope");
+    }
+    if (document.getElementById("filterNASA").checked) {
+      fuentes.push("NASA");
+    }
+
+    let query = {
       text: document.getElementById("busqueda").value,
-      patentsview: true,
-    });
+      sources: fuentes,
+      dateAfter: document.getElementById("fechaPosterior").checked,
+      date: document.getElementById("fecha").value,
+    };
+
+    props.seteadorDeConsultas(query);
 
     fetch(url, {
       method: "POST", // or 'PUT'
@@ -161,7 +118,7 @@ function Busqueda(props) {
                         />
                         <label
                           className="form-check-label"
-                          for="fiterPatentsView">
+                          htmlFor="fiterPatentsView">
                           PatentsView
                         </label>
                         <br />
@@ -170,7 +127,7 @@ function Busqueda(props) {
                           type="checkbox"
                           id="filterEPO"
                         />
-                        <label className="form-check-label" for="filterEPO">
+                        <label className="form-check-label" htmlFor="filterEPO">
                           European Patent Option
                         </label>
                       </div>
@@ -185,7 +142,7 @@ function Busqueda(props) {
                         />
                         <label
                           className="form-check-label"
-                          for="filterGoogleUPatents">
+                          htmlFor="filterGoogleUPatents">
                           Google Utility Patents
                         </label>
                         <br />
@@ -196,7 +153,7 @@ function Busqueda(props) {
                         />
                         <label
                           className="form-check-label"
-                          for="filterGoogleIPatents">
+                          htmlFor="filterGoogleIPatents">
                           Google Issued Patents
                         </label>
                         <br />
@@ -207,7 +164,7 @@ function Busqueda(props) {
                         />
                         <label
                           className="form-check-label"
-                          for="filterPatentScope">
+                          htmlFor="filterPatentScope">
                           PatentScope
                         </label>
                         <br />
@@ -216,7 +173,9 @@ function Busqueda(props) {
                           type="checkbox"
                           id="filterNASA"
                         />
-                        <label className="form-check-label" for="filterNASA">
+                        <label
+                          className="form-check-label"
+                          htmlFor="filterNASA">
                           NASA Patents
                         </label>
                       </div>
@@ -231,15 +190,13 @@ function Busqueda(props) {
                   </div>
                   <div className="row" style={{ padding: "5px" }}>
                     <div className="col-6">
-                      <div class="form-group">
-                        <label
-                          for="exampleFormControlTextarea1"
-                          className="text-muted">
+                      <div className="form-group">
+                        <label htmlFor="fecha" className="text-muted">
                           Insert date (YYYY-MM-DD):
                         </label>
                         <textarea
-                          class="form-control"
-                          id="exampleFormControlTextarea1"
+                          className="form-control"
+                          id="fecha"
                           rows="1"></textarea>
                       </div>
                     </div>
@@ -254,7 +211,7 @@ function Busqueda(props) {
                         />
                         <label
                           className="form-check-label"
-                          for="fechaPosterior">
+                          htmlFor="fechaPosterior">
                           After
                         </label>
                       </div>
@@ -265,7 +222,9 @@ function Busqueda(props) {
                           name="fechas"
                           id="fechaIgual"
                         />
-                        <label className="form-check-label" for="fechaIgual">
+                        <label
+                          className="form-check-label"
+                          htmlFor="fechaIgual">
                           Equal
                         </label>
                       </div>
@@ -301,74 +260,21 @@ function Busqueda(props) {
               </div>
             </div>
           </div>
-          <div className="row text-center">
-            <button
-              className="btn btn-primary btn-lg"
-              style={{ width: "100%", height: "65%", marginBottom: "0px" }}
-              onClick={enviarBusqueda}>
-              Search
-            </button>
+          <div className="row text-right">
+            <Link to={"/results"}>
+              <button
+                className="btn btn-info"
+                style={{ width: "100%", height: "100%" }}
+                onClick={enviarBusqueda}>
+                Search
+              </button>
+            </Link>
           </div>
         </div>
       </div>
       <br />
       <br />
       <br />
-      <div className="row">
-        <div
-          class="btn-group btn-group-toggle text-center"
-          data-toggle="buttons">
-          <Link to={"results/patentsview"}>
-            <label class="btn btn-secondary active">
-              <input
-                type="radio"
-                name="options"
-                id="option1"
-                autocomplete="off"
-                checked
-              />{" "}
-              Option 1
-            </label>
-          </Link>
-          <label class="btn btn-secondary">
-            <input
-              type="radio"
-              name="options"
-              id="option2"
-              autocomplete="off"
-            />{" "}
-            Option 2
-          </label>
-          <label class="btn btn-secondary">
-            <input
-              type="radio"
-              name="options"
-              id="option3"
-              autocomplete="off"
-            />{" "}
-            Option 3
-          </label>
-          <label class="btn btn-secondary">
-            <input
-              type="radio"
-              name="options"
-              id="option2"
-              autocomplete="off"
-            />{" "}
-            Option 4
-          </label>
-          <label class="btn btn-secondary">
-            <input
-              type="radio"
-              name="options"
-              id="option3"
-              autocomplete="off"
-            />{" "}
-            Option 5
-          </label>
-        </div>
-      </div>
-
       <br />
       <br />
       <br />

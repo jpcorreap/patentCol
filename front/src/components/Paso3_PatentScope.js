@@ -20,34 +20,6 @@ function Paso3_PatentScope() {
 
   return (
     <div className="paso">
-      <PasoTitle actual={3} nombre="Estado de la técnica" />
-      <br />
-      <br />
-      <div className="row text-center">
-        <div className="col text-center">
-          <Link to={"paso3"}>
-            <button className="btn btn-info">API PatentsView</button>
-          </Link>
-        </div>
-        <div className="col text-center">
-          <button className="btn btn-dark">PatentScope</button>
-        </div>
-        <div className="col text-center">
-          <Link to={"paso3_googleutility"}>
-            <button className="btn btn-info">Google Utility Patents</button>
-          </Link>
-        </div>
-        <div className="col text-center">
-          <Link to={"paso3_googleissued"}>
-            <button className="btn btn-info">Google Issued Patents</button>
-          </Link>
-        </div>
-        <div className="col text-center">
-          <Link to={"paso3_nasa"}>
-            <button className="btn btn-info">NASA Patents</button>
-          </Link>
-        </div>
-      </div>
       <br />
       <div className="row text-center">
         <div className="col-12">
