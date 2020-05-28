@@ -1,7 +1,7 @@
 # Patent Search
 Sitio web para ayudar a en la busqueda de pantentes a travez de distintas bases de datos en el mundo.
 
-![Thumbnail de la aplicacion]
+![Thumbnail de la aplicacion](https://github.com/jpcorreap/patentCol/blob/master/image.png?raw=true)
 
 # Tecnologías usadas
 Se utiliza un servidor de Express.js que corre sobre Node.js. Este es el backend en el puerto 3001. Se usa Mongo Atlas como base de datos y para el frontend se usó React, en el puerto 3000. La autenticación se realiza con Passport.js y se encriptan contraseñas con Bcrypt.
