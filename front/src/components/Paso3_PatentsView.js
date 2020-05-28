@@ -50,25 +50,6 @@ function Paso3PatentsView(props) {
     document.getElementById("spinnerCarga").style.position = "relative";
   };
 
-  // Hace GET de la API
-  useEffect(() => {
-    async function fetchPatentsView() {
-      const res = await fetch(
-        'https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2010-01-01"}}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]'
-      );
-      res
-        .json()
-        .then((res) => {
-          setPatentsView(res.patents);
-          ocultarSpinner();
-        })
-        .catch((err) => {
-          ocultarSpinner();
-        });
-    }
-    fetchPatentsView();
-  }, []);
-
   return (
     <div className="paso">
       <div>

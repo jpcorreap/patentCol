@@ -4,7 +4,6 @@ import Home from "./Home.js";
 import Busqueda from "./Busqueda.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
-import Resultados from "./Resultados.js";
 import ProgressBar from "./ProgressBar.js";
 import Paso1 from "./Paso1.js";
 import Paso2 from "./Paso2.js";
