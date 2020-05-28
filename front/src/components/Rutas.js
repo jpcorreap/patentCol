@@ -5,7 +5,13 @@ import Busqueda from "./Busqueda.js";
 import Login from "./Login.js";
 import Register from "./Register.js";
 import Resultados from "./Resultados.js";
-import Pasos from "./Pasos.js";
+import ProgressBar from "./ProgressBar.js";
+import Paso1 from "./Paso1.js";
+import Paso2 from "./Paso2.js";
+import Paso3 from "./Paso3_PatentsView.js";
+import Paso4 from "./Paso4.js";
+import Paso5 from "./Paso5.js";
+import Paso6 from "./Paso6.js";
 
 function Rutas(props) {
   const [query, setQuery] = useState({});
@@ -18,10 +24,11 @@ function Rutas(props) {
         </Route>
 
         <Route exact path="/search">
-          <Busqueda seteadorDeConsultas={(objeto) => setQuery(objeto)} />
+          <Busqueda
+            seteadorDeConsultas={(objeto) => setQuery(objeto)}
+            hayQuery={query.text != null}
+          />
         </Route>
-
-        <Resultados query={query} />
 
         <Route exact path="/login">
           <Login />
@@ -31,7 +38,35 @@ function Rutas(props) {
           <Register />
         </Route>
 
-        <Pasos />
+        <Route exact path="/paso1">
+          <ProgressBar avance={1} />
+          <Paso1 />
+        </Route>
+
+        <Route exact path="/paso2">
+          <ProgressBar avance={2} />
+          <Paso2 />
+        </Route>
+
+        <Route exact path="/paso3">
+          <ProgressBar avance={3} />
+          <Paso3 />
+        </Route>
+
+        <Route exact path="/paso4">
+          <ProgressBar avance={4} />
+          <Paso4 />
+        </Route>
+
+        <Route exact path="/paso5">
+          <ProgressBar avance={5} />
+          <Paso5 />
+        </Route>
+
+        <Route exact path="/paso6">
+          <ProgressBar avance={6} />
+          <Paso6 />
+        </Route>
       </Switch>
     </div>
   );

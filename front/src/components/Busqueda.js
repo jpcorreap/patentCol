@@ -98,7 +98,7 @@ function Busqueda(props) {
               name="busqueda"
               placeholder="Key words"
               required
-              focus={true}
+              focus
             />
           </div>
           <br />
@@ -133,9 +133,10 @@ function Busqueda(props) {
                           className="form-check-input"
                           type="checkbox"
                           id="filterEPO"
+                          disabled={true}
                         />
                         <label className="form-check-label" htmlFor="filterEPO">
-                          European Patent Office
+                          European Patents Office
                         </label>
                       </div>
                     </div>
@@ -263,32 +264,64 @@ function Busqueda(props) {
                 <div>
                   <br />
                   <div className="text-left">
-                    <div className="form-group">
-                      <select
-                        multiple
+                    <div className="form-group" style={{ width: "100%" }}>
+                      <div
                         className="form-control"
                         id="exampleFormControlSelect2"
                         style={{ height: "270px" }}>
                         {docs.map((d, i) => (
-                          <option key={i}>
-                            {d.text} {d.relativeDate}
-                          </option>
+                          <p key={i}>
+                            <strongCriollo
+                              onClick={() =>
+                                (document.getElementById("busqueda").value =
+                                  d.text)
+                              }>
+                              {d.text}
+                            </strongCriollo>
+                            : {d.relativeDate}
+                          </p>
                         ))}
-                      </select>
+                      </div>
                     </div>
                   </div>
                 </div>
               )}
               <div className="row">
-                <div className="col text-center">
-                  <Link to={"/results"}>
-                    <button
-                      className="btn btn-primary"
-                      style={{ width: "100%", height: "100%" }}
-                      onClick={enviarBusqueda}>
-                      Search
-                    </button>
-                  </Link>
+                <div className="col text-right">
+                  {props.hayQuery ? (
+                    <div>
+                      <div className="text-center" style={{ margin: "15px" }}>
+                        <div
+                          className="spinner-border text-info"
+                          role="status"
+                          id="spinnerCarga">
+                          <span className="sr-only">
+                            Buscando información...
+                            <br />
+                          </span>
+                          <br />
+                        </div>
+                        <p>
+                          <strong>Fetching patents data...</strong>
+                        </p>
+                        <Link to={"/results"}>
+                          <button
+                            className="btn btn-primary"
+                            style={{ visibility: "hidden" }}>
+                            View results
+                          </button>
+                        </Link>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      <button
+                        className="btn btn-primary"
+                        onClick={enviarBusqueda}>
+                        Search
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

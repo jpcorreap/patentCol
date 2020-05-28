@@ -32,26 +32,34 @@ function Resultados(props) {
       .then((response) => console.log("Success:", response));
   };
 
-  useEffect(() => {
-    // VACAAA, ACÁ VAN LOS FETCHS DE SU DATAENDPOINT.
-    // UN FETCH POR CADA DATO QUE SE PIDA EN PROPS.QUERY
-    fetchGenerico(
-      "url en el back para Google Issued Patents",
-      { texto: "query que se le va a mandar a Mongo" },
-      setGoogleUtilityPatents
+  async function fetchPatentsView() {
+    const res = await fetch(
+      'https://www.patentsview.org/api/patents/query?q={"_gte":{"patent_date":"2015-01-01"}}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]'
     );
+    res
+      .json()
+      .then((res) => {
+        setPatentsView(res.patents);
+      })
+      .catch((err) => {
+        console.log("Error: ", err);
+      });
+  }
 
-    fetchGenerico(
+  /*fetchGenerico(
       "url en el back para Google Patents",
       { texto: "query que se le va a mandar a Mongo" },
       setGoogleUtilityPatents
-    );
+      );*/
+  useEffect(() => {
+    fetchPatentsView();
+    console.log("KHÉÉÉÉ!");
   }, []);
 
   return (
     <div>
       <Route exact path="/results">
-        <h1>¡Bieeenvenido a los resultados!</h1>
+        <h1>Resultados</h1>
         <br />
         <p>
           Consulta seleccionada en el componente anterior:
@@ -79,12 +87,7 @@ function Resultados(props) {
           </div>
         ) : (
           <div>
-            <Spinner mensaje="Fetching data from PatentsView..." />
-            <button
-              onClick={() => setPatentsView(["Kelly pero qué mondá"])}
-              className="btn btn-success">
-              Simular que ya hizo fetch
-            </button>
+            <Spinner mensaje="Fetching patents data..." />
           </div>
         )}
       </Route>

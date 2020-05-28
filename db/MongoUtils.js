@@ -1,10 +1,7 @@
 const MongoClient = require("mongodb").MongoClient;
 const ObjectID = require("mongodb").ObjectID;
 const moment = require("moment");
-moment.locale("es");
-
 require("dotenv").config();
-
 const url = process.env.MONGOURL;
 
 function MongoUtils() {
@@ -94,7 +91,7 @@ function MongoUtils() {
         .db("patentCol")
         .collection("busquedas")
         .find({})
-        .limit(15)
+        .limit(7)
         .sort({ _id: -1 })
         .toArray()
         .finally(() => client.close())

@@ -42,3 +42,9 @@ tituloFiltro {
   margin: 15px;
   margin-top: 15px;
 }
+
+strongCriollo {
+  font-weight: bolder;
+  color: gray;
+  cursor: pointer;
+}
