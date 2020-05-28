@@ -26,6 +26,12 @@ descripcionFiltro {
   font-size: 1.2em;
 }
 
+.descripcionFiltro {
+  font-weight: 600;
+  color: gray;
+  font-size: 1.2em;
+}
+
 tituloFiltro {
   font-weight: bolder;
   color: black;

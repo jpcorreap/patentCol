@@ -99,7 +99,9 @@ function DashboardBusqueda(props) {
               </div>
               <br />
               <div className="col text-left">
-                <descripcionFiltro>By source</descripcionFiltro>
+                <p className="descripcionFiltro">
+                  By source <span style={{ color: "red" }}>*</span>
+                </p>{" "}
                 <div className="row formularioGenerico">
                   <div className="col-6">
                     <h5>APIs:</h5>

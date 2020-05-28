@@ -1,8 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function BotonesCambio(props) {
-  let sinColor = { color: "white" };
+  let sinResaltar = { fontSize: "1em", color: "white" };
+  let resaltado = { fontSize: "1.2em", color: "blue" };
 
   let hayPatentscope = () => {
     if (props.cualesSeMuestran.includes("PatentsView")) {
@@ -13,12 +13,12 @@ function BotonesCambio(props) {
             name="options"
             id="option1"
             autocomplete="off"
+            onClick={() => props.setActual("PatentsView")}
+            style={props.actual === "PatentsView" ? resaltado : sinResaltar}
             checked={props.actual === "PatentsView"}
             disabled={props.actual === "PatentsView"}
           />{" "}
-          <Link to={"/results/patentsview"} style={sinColor}>
-            PatentsView
-          </Link>
+          PatentsView
         </label>
       );
     }
@@ -44,13 +44,11 @@ function BotonesCambio(props) {
             name="options"
             id="option3"
             autocomplete="off"
+            onClick={() => props.setActual("GoogleUPatents")}
             checked={props.actual === "GoogleUPatents"}
             disabled={props.actual === "GoogleUPatents"}
-            GoogleIPatents
           />{" "}
-          <Link to={"/results/googleutility"} style={sinColor}>
-            Google Utility Patents
-          </Link>
+          Google Utility Patents
         </label>
       );
     }
@@ -65,12 +63,11 @@ function BotonesCambio(props) {
             name="options"
             id="option2"
             autocomplete="off"
+            onClick={() => props.setActual("GoogleIPatents")}
             checked={props.actual === "GoogleIPatents"}
             disabled={props.actual === "GoogleIPatents"}
           />{" "}
-          <Link to={"/results/googleissued"} style={sinColor}>
-            Google Issued Patents
-          </Link>
+          Google Issued Patents
         </label>
       );
     }
@@ -85,12 +82,11 @@ function BotonesCambio(props) {
             name="options"
             id="option2"
             autocomplete="off"
+            onClick={() => props.setActual("PatentScope")}
             checked={props.actual === "PatentScope"}
             disabled={props.actual === "PatentScope"}
           />{" "}
-          <Link to={"/results/patentscope"} style={sinColor}>
-            Google Issued Patents
-          </Link>
+          Google Issued Patents
         </label>
       );
     }
@@ -105,12 +101,11 @@ function BotonesCambio(props) {
             name="options"
             id="option3"
             autocomplete="off"
+            onClick={() => props.setActual("NasaPatents")}
             checked={props.actual === "NasaPatents"}
             disabled={props.actual === "NasaPatents"}
           />{" "}
-          <Link to={"/results/nasa"} style={sinColor}>
-            NasaPatents
-          </Link>
+          NasaPatents
         </label>
       );
     }

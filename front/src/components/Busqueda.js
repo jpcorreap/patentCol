@@ -5,6 +5,7 @@ import BotonesCambio from "./BotonesCambio.js";
 
 function Busqueda() {
   const [query, setQuery] = useState({});
+  const [actual, setActual] = useState("");
   const [patentsView, setPatentsView] = useState([]);
 
   const ocultarSpinner = () => {
@@ -27,10 +28,6 @@ function Busqueda() {
     });
 
     async function fetchNewPatentsView() {
-      console.log(
-        "OJOO, va a hacer get a ",
-        `https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"${fecha}"}}${queriesPalabrasClave}]}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]`
-      );
       const res = await fetch(
         `https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"${fecha}"}}${queriesPalabrasClave}]}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]`
       );
@@ -45,39 +42,62 @@ function Busqueda() {
     fetchNewPatentsView();
   };
 
+  function mostrarResultadosActuales() {
+    switch (actual) {
+      case "PatentsView":
+        return <MostrarResultados source={patentsView} />;
+      default:
+        return <h3>Aquí se van a mostrar resultados de {actual}</h3>;
+    }
+  }
+
+  function validarCualesSeMuestran() {
+    if (Object.entries(query).length !== 0) {
+      if (query.fuentes.includes("PatentsView") && patentsView.length !== 0) {
+        return (
+          <div>
+            <BotonesCambio
+              cualesSeMuestran={query.fuentes}
+              actual={actual}
+              setActual={setActual}
+            />
+            <br />
+            <br />
+            {mostrarResultadosActuales()}
+          </div>
+        );
+      }
+    }
+  }
+
   return (
     <div>
-      {Object.entries(query).length !== 0 ? (
-        <div id="spinnerCarga">
-          <div className="text-center" style={{ margin: "15px" }}>
-            <div className="spinner-border text-info" role="status">
-              <span className="sr-only">
-                Buscando información...
-                <br />
-              </span>
-              <br />
-            </div>
-            <p style={{ fontSize: "1.2em" }}>
-              <strong>Fetching data...</strong>
-              <br />
-            </p>
-            <p>Desde Dashboard se trajo la query {JSON.stringify(query)}</p>
-          </div>
-          <BotonesCambio cualesSeMuestran={query.fuentes} />
-        </div>
-      ) : (
+      {Object.entries(query).length === 0 ? (
         <DashboardBusqueda
           setter={setQuery}
           actualizar={{ patentsView: actualizarPatentsView }}
         />
-      )}
-      {patentsView.length !== 0 && Object.entries(query).length !== 0 ? (
-        <div>
-          <BotonesCambio cualesSeMuestran={query.fuentes} />
-          <MostrarResultados source={patentsView} />
-        </div>
       ) : (
-        <p></p>
+        <div>
+          <div id="spinnerCarga">
+            <div className="text-center" style={{ margin: "15px" }}>
+              <div className="spinner-border text-info" role="status">
+                <span className="sr-only">
+                  Buscando información...
+                  <br />
+                </span>
+                <br />
+              </div>
+              <p style={{ fontSize: "1.2em" }}>
+                <strong>Fetching data...</strong>
+                <br />
+              </p>
+              <p>Desde Dashboard se trajo la query {JSON.stringify(query)}</p>
+            </div>
+          </div>
+
+          {validarCualesSeMuestran()}
+        </div>
       )}
     </div>
   );
