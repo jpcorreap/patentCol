@@ -52,99 +52,20 @@ function Paso3PatentsView(props) {
 
   return (
     <div className="paso">
-      <div>
-        <div className="row">
-          <div className="col-5">
-            <img
-              style={{ width: "100%" }}
-              alt="PatentsView Logo"
-              id="imagenAHH"
-              src="https://www.patentsview.org/web/img/f34f24560eeb9097579c2be6fa29f5a7.logo_2x.png"></img>
-          </div>
-          <div className="col-1"></div>
-          <div className="col-5 text-right">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Palabras clave"
-              aria-label="Search"
-              id="barraPalabras"
-            />
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Posteriores a la fecha (AAAA-MM-DD)"
-              aria-label="Search"
-              id="barraFecha"
-            />
-          </div>
-          <div className="col">
-            <button
-              style={{
-                color: "blue",
-                width: "100%",
-                height: "70px",
-              }}
-              onClick={actualizarConsulta}
-              className="btn btn-info my-2 my-sm-0">
-              <img
-                alt="Filter button"
-                src="https://cdn2.iconfinder.com/data/icons/font-awesome/1792/filter-512.png"
-                width="100%"></img>
-            </button>
-          </div>
-        </div>
-        <div className="container">
-          <br />
-          <div className="row justify-content-center">
-            <div
-              className="spinner-border text-info"
-              role="status"
-              id="spinnerCarga">
-              <span className="sr-only">
-                Buscando información...
-                <br />
-              </span>
-              <br />
-            </div>
-            {patentsView != null ? (
-              patentsView.map((patent) => (
-                <div
-                  className="card border-info mb-3 col-md-12"
-                  key={patent.patent_id}>
-                  <div className="card-header">
-                    <h4>{patent.patent_title}</h4>
-                  </div>
-                  <div className="card-body">
-                    <p>
-                      <strong>Type:</strong> {patent.patent_type}
-                      {" - "}
-                      <strong>Date:</strong> {patent.patent_date}
-                      {" - "}
-                      <strong>Inventor(s):</strong>{" "}
-                      {patent.inventors.map((inventor) => {
-                        return (
-                          inventor.inventor_first_name +
-                          " (ID " +
-                          inventor.inventor_key_id +
-                          ") "
-                        );
-                      })}
-                    </p>
-                    <p className="card-text text-justify">
-                      {patent.patent_abstract}
-                    </p>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>
-                No se encontraron resultados con ese filtro, por favor busque
-                nuevamente.
-              </p>
-            )}
-          </div>
-        </div>
+      <PasoTitle actual={3} nombre="Estado del arte" />
+      <br />
+      <div className="descripcion text-justify">
+        <p>
+          Antes de presentar la solicitud se sugiere realizar una{" "}
+          <strong>búsqueda del estado de la técnica</strong> en bases de datos
+          para localizar documentos de patentes y de esta manera conocer si tu
+          idea es una novedad en la invención.
+        </p>
+        <br />
+        <p>
+          Te recomendamos fuertemente hacer uso de nuestro poderoso buscador
+          haciendo <a href="#">clic aquí</a>.
+        </p>
       </div>
     </div>
   );

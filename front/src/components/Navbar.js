@@ -30,12 +30,12 @@ function Navbar(props) {
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link to={"/login"} className="nav-link">
-                    <strong>Ingresar</strong>
+                    <strong>Login</strong>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link to={"/register"} className="nav-link">
-                    <strong>Registrarse</strong>
+                    <strong>Sing up</strong>
                   </Link>
                 </li>
               </ul>

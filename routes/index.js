@@ -77,5 +77,11 @@ router.get("/getPatents/getNasaPatents", function (req, res) {
   });
 });
 
+router.post("/getGenericsPatents/:colName", function (req, res) {
+  console.log("Entró a routes de Node js");
+  db.patents.getGenericsPatents(req.params.colName, req.body).then((col) => {
+    res.json(col);
+  });
+});
 
 module.exports = router;

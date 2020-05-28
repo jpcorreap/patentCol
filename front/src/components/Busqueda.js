@@ -42,6 +42,37 @@ function Busqueda() {
     fetchNewPatentsView();
   };
 
+  const actualizarGenerics = (/*palabrasClave, fecha*/) => {
+    /*let queriesPalabrasClave = "";
+
+    palabrasClave.split(" ").forEach((palabra) => {
+      queriesPalabrasClave +=
+        ',{"_text_any":{"patent_title":"' + palabra + '"}}';
+    });*/
+
+    async function fetchGenerico(url, body, setter) {
+      const res = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      res
+        .json()
+        .then((res) => {
+          if (res) {
+            console.log("Se obtuvo como respuesta: ", res);
+          }
+        })
+        .catch((err) => {});
+    }
+
+    let newURL = "/getGenericsPatents/nasaPatents";
+    let newBody = { text: "Training Exercise" };
+    fetchGenerico(newURL, newBody);
+  };
+
   function mostrarResultadosActuales() {
     switch (actual) {
       case "PatentsView":
@@ -99,6 +130,9 @@ function Busqueda() {
           {validarCualesSeMuestran()}
         </div>
       )}
+      <button className="btn btn-error" onClick={actualizarGenerics}>
+        Mandar esa cosa
+      </button>
     </div>
   );
 }

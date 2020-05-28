@@ -1,0 +1,29 @@
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<button onclick="fetchear()">Probar la maricada esa</button>
+
+<script>
+  let fetchear = () => {
+    const fetchGenerico = (url, body, setter) => {
+      fetch(url, {
+        method: "POST", // or 'PUT'
+        body: JSON.stringify(body), // data can be `string` or {object}!
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((respuestaEnJSON) => {
+          if (respuestaEnJSON) {
+            setter(respuestaEnJSON);
+          }
+        })
+        .catch((error) => console.error("Error:", error))
+        .then((response) => console.log("Success:", response));
+    };
+  };
+</script>

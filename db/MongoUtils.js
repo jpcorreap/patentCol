@@ -170,16 +170,6 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
-  mu.patents.getPatentScopeSpecific = () =>
-    mu.connect().then((client) =>
-      client
-        .db("patentSearch")
-        .collection("patentscope")
-        .find({ $text: { $search: '"Beam Wire"' } })
-        .toArray()
-        .finally(() => client.close())
-    );
-
   mu.patents.getGoogleUtilityPatents = () =>
     mu.connect().then((client) =>
       client
@@ -189,16 +179,6 @@ function MongoUtils() {
         .limit(25)
         .skip(Math.floor(Math.random() * 1500))
         .sort({ _id: -1 })
-        .toArray()
-        .finally(() => client.close())
-    );
-
-  mu.patents.getGoogleUtilityPatentsSpecific = () =>
-    mu.connect().then((client) =>
-      client
-        .db("patentSearch")
-        .collection("googleUtilityPatents")
-        .find({ $text: { $search: '"Beam Wire"' } })
         .toArray()
         .finally(() => client.close())
     );
@@ -216,16 +196,6 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
-  mu.patents.getGoogleIssuedPatentsSpecific = () =>
-    mu.connect().then((client) =>
-      client
-        .db("patentSearch")
-        .collection("googleReissuePatents")
-        .find({ $text: { $search: '"Beam Wire"' } })
-        .toArray()
-        .finally(() => client.close())
-    );
-
   mu.patents.getNasaPatents = () =>
     mu.connect().then((client) =>
       client
@@ -239,15 +209,33 @@ function MongoUtils() {
         .finally(() => client.close())
     );
 
-  mu.patents.getNasaPatentsSpecific = () =>
-    mu.connect().then((client) =>
+  mu.patents.getGenericsPatents = (colName, body) => {
+    console.log(
+      "\n\nLlegó a MongoUtils al generics con los parámetros ",
+      colName,
+      body
+    );
+
+    let filtro = { $text: { $search: "'" + body.text + "'" } };
+
+    if (body.date != null) {
+      if (body.after != null) {
+        let values = body.date.split("-");
+        filtro.date = { $gt: new Date(values[0], values[1], values[2]) };
+      }
+    }
+
+    console.log("Se armó el filtro ", filtro);
+
+    return mu.connect().then((client) =>
       client
         .db("patentSearch")
-        .collection("nasaPatents")
-        .find({ $text: { $search: '"Wire"' } })
+        .collection(colName)
+        .find(filtro)
         .toArray()
         .finally(() => client.close())
     );
+  };
 
   return mu;
 }
