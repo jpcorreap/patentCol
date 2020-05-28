@@ -1,5 +1,5 @@
-# Patent Col
-Sitio web para ayudar a PyMEs e inventores independientes colombianos en el proceso de solicitud de patentes.
+# Patent Search
+Sitio web para ayudar a en la busqueda de pantentes a travez de distintas bases de datos en el mundo.
 
 ![Thumbnail de la aplicacion](https://github.com/jpcorreap/patentCol/blob/master/image.png?raw=true)
 
@@ -21,22 +21,22 @@ Despues de tenerlo instalado ejecutar :
 
 `mongod`
 
-# ¿Cómo ejecutar la aplicación?
-Actualmente se puede ejecutar con la vista de servidor de desarrollo y produccion. Para ello siga los siguientes pasos. Note que debe tener yarn instalado en su computador y descargar mediante git clone este repositorio.
+# ¿Cómo ejecutar la aplicación localmente ?
+Para ello siga los siguientes pasos. Note que debe tener yarn instalado en su computador.
 
-## Paso 1: instalar y ejecutar el backend:
-Para correr el backend de la aplicación, ejecute los siguientes comandos:
+## Paso 1: clonar el repo:
+`git clone https://github.com/jpcorreap/patentCol.git` <br />
 
-`cd quedate-en-casa` <br />
+## Paso 2: Instalar y ejecutar el backend:
+`cd patentSearch` <br />
 `yarn`<br />
 `yarn start`
 
-## Paso 2: instalar y ejecutar el frontend:
-El siguiente paso es ejecutar el front, construido con React. Para ello, ejecute:
-
-`cd quedate-en-casa`<br />
+## Paso 3:  instalar y ejecutar el frontend:
+`cd patentSeacrh`<br />
 `cd front`<br />
 `yarn`<br />
 `yarn start`
+
 
 Una vez seguidos los pasos anteriores, podrá acceder a la aplicación en su http://localhost:3000.
