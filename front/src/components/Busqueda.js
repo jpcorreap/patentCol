@@ -6,7 +6,11 @@ import BotonesCambio from "./BotonesCambio.js";
 function Busqueda() {
   const [query, setQuery] = useState({});
   const [actual, setActual] = useState("");
-  const [patentsView, setPatentsView] = useState([]);
+  const [patentsView, setPatentsView] = useState(null);
+  const [googleUPatents, setGoogleUPatents] = useState(null);
+  const [googleIPatents, setGoogleIPatents] = useState(null);
+  const [patentScope, setPatentScope] = useState(null);
+  const [nasaPatents, setNasaPatents] = useState(null);
 
   const ocultarSpinner = () => {
     document.getElementById("spinnerCarga").style.visibility = "hidden";
@@ -37,20 +41,15 @@ function Busqueda() {
           setPatentsView(res.patents);
           ocultarSpinner();
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     }
     fetchNewPatentsView();
   };
 
-  const actualizarGenerics = (/*palabrasClave, fecha*/) => {
-    /*let queriesPalabrasClave = "";
-
-    palabrasClave.split(" ").forEach((palabra) => {
-      queriesPalabrasClave +=
-        ',{"_text_any":{"patent_title":"' + palabra + '"}}';
-    });*/
-
-    async function fetchGenerico(url, body, setter) {
+  const actualizarGenerics = (query, colName) => {
+    async function fetchGenerico(url, body) {
       const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify(body),
@@ -62,29 +61,79 @@ function Busqueda() {
         .json()
         .then((res) => {
           if (res) {
-            console.log("Se obtuvo como respuesta: ", res);
+            switch (colName) {
+              case "googleUtilityPatents":
+                setGoogleUPatents(res);
+                break;
+              case "googleReissuePatents":
+                setGoogleIPatents(res);
+                break;
+              case "patentscope":
+                setPatentScope(res);
+                break;
+              case "nasaPatents":
+                setNasaPatents(res);
+                break;
+              default:
+                break;
+            }
           }
         })
-        .catch((err) => {});
+        .catch((err) => {
+          console.log(err);
+        });
     }
 
-    let newURL = "/getGenericsPatents/nasaPatents";
-    let newBody = { text: "Training Exercise" };
-    fetchGenerico(newURL, newBody);
+    let newBody = { text: query.text };
+
+    if (query.date !== "") {
+      newBody.date = query.date;
+      if (query.after !== "") {
+        newBody.after = "true";
+      } else if (query.equal !== "") {
+        newBody.equal = "true";
+      }
+    }
+
+    if (query.author !== "") {
+      newBody.text += query.author;
+    }
+    fetchGenerico("/getGenericsPatents/" + colName, newBody);
   };
 
   function mostrarResultadosActuales() {
     switch (actual) {
       case "PatentsView":
         return <MostrarResultados source={patentsView} />;
-      default:
-        return <h3>Aquí se van a mostrar resultados de {actual}</h3>;
+      case "GoogleUPatents":
+        return <MostrarResultados source={googleUPatents} />;
+      case "GoogleIPatents":
+        return <MostrarResultados source={googleIPatents} />;
+      case "PatentScope":
+        return <MostrarResultados source={patentScope} />;
+      case "NASA":
+        return <MostrarResultados source={nasaPatents} />;
     }
   }
 
-  function validarCualesSeMuestran() {
+  function validarElFetch() {
+    let bool1 = query.fuentes.includes("PatentsView") || patentsView !== null;
+    let bool2 =
+      query.fuentes.includes("GoogleUPatents") || googleUPatents !== null;
+    let bool3 =
+      query.fuentes.includes("GoogleIPatents") || googleIPatents !== null;
+    let bool4 = query.fuentes.includes("PatentScope") || patentScope !== null;
+    let bool5 = query.fuentes.includes("NASA") || nasaPatents !== null;
+
+    let yaTermino = /*bool1 &&*/ bool2 && bool3 && bool4; /*&& bool5*/
+
+    console.log("YAAA TERMINÓ??? ", yaTermino);
+    return yaTermino;
+  }
+
+  function mostrarLasNecesarias() {
     if (Object.entries(query).length !== 0) {
-      if (query.fuentes.includes("PatentsView") && patentsView.length !== 0) {
+      if (validarElFetch()) {
         return (
           <div>
             <BotonesCambio
@@ -106,33 +155,14 @@ function Busqueda() {
       {Object.entries(query).length === 0 ? (
         <DashboardBusqueda
           setter={setQuery}
-          actualizar={{ patentsView: actualizarPatentsView }}
+          actualizar={{
+            patentsView: actualizarPatentsView,
+            generics: actualizarGenerics,
+          }}
         />
       ) : (
-        <div>
-          <div id="spinnerCarga">
-            <div className="text-center" style={{ margin: "15px" }}>
-              <div className="spinner-border text-info" role="status">
-                <span className="sr-only">
-                  Buscando información...
-                  <br />
-                </span>
-                <br />
-              </div>
-              <p style={{ fontSize: "1.2em" }}>
-                <strong>Fetching data...</strong>
-                <br />
-              </p>
-              <p>Desde Dashboard se trajo la query {JSON.stringify(query)}</p>
-            </div>
-          </div>
-
-          {validarCualesSeMuestran()}
-        </div>
+        <div>{mostrarLasNecesarias()}</div>
       )}
-      <button className="btn btn-error" onClick={actualizarGenerics}>
-        Mandar esa cosa
-      </button>
     </div>
   );
 }

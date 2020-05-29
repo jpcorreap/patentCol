@@ -34,30 +34,37 @@ function DashboardBusqueda(props) {
     let fuentes = [];
 
     let query = {
-      texto: document.getElementById("busqueda").value,
-      fecha: document.getElementById("fecha").value,
-      autor: document.getElementById("author").value,
-      posterior: document.getElementById("fechaPosterior").checked,
-      igual: document.getElementById("fechaIgual").checked,
+      text: document.getElementById("busqueda").value,
+      date: document.getElementById("fecha").value,
+      author: document.getElementById("author").value,
+      after: document.getElementById("fechaPosterior").checked,
+      equal: document.getElementById("fechaIgual").checked,
     };
 
     if (document.getElementById("fiterPatentsView").checked) {
       fuentes.push("PatentsView");
-      props.actualizar.patentsView(query.texto, query.fecha);
+      props.actualizar.patentsView(query);
     }
 
-    if (document.getElementById("filterEPO").checked) fuentes.push("EPO");
-
-    if (document.getElementById("filterGoogleUPatents").checked)
+    if (document.getElementById("filterGoogleUPatents").checked) {
       fuentes.push("GoogleUPatents");
+      props.actualizar.generics(query, "googleUtilityPatents");
+    }
 
-    if (document.getElementById("filterGoogleIPatents").checked)
+    if (document.getElementById("filterGoogleIPatents").checked) {
       fuentes.push("GoogleIPatents");
+      props.actualizar.generics(query, "googleReissuePatents");
+    }
 
-    if (document.getElementById("filterPatentScope").checked)
+    if (document.getElementById("filterPatentScope").checked) {
       fuentes.push("PatentScope");
+      props.actualizar.generics(query, "patentscope");
+    }
 
-    if (document.getElementById("filterNASA").checked) fuentes.push("NASA");
+    if (document.getElementById("filterNASA").checked) {
+      fuentes.push("NASA");
+      props.actualizar.generics(query, "nasaPatents");
+    }
 
     query.fuentes = fuentes;
 
@@ -84,7 +91,6 @@ function DashboardBusqueda(props) {
             name="busqueda"
             placeholder="Key words"
             required
-            focus
           />
         </div>
         <br />
@@ -110,6 +116,7 @@ function DashboardBusqueda(props) {
                         className="form-check-input"
                         type="checkbox"
                         id="fiterPatentsView"
+                        disabled
                       />
                       <label
                         className="form-check-label"
@@ -121,7 +128,7 @@ function DashboardBusqueda(props) {
                         className="form-check-input"
                         type="checkbox"
                         id="filterEPO"
-                        disabled={true}
+                        disabled
                       />
                       <label className="form-check-label" htmlFor="filterEPO">
                         European Patents Office
@@ -168,6 +175,7 @@ function DashboardBusqueda(props) {
                         className="form-check-input"
                         type="checkbox"
                         id="filterNASA"
+                        disabled
                       />
                       <label className="form-check-label" htmlFor="filterNASA">
                         NASA Patents

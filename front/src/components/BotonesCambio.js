@@ -14,22 +14,8 @@ function BotonesCambio(props) {
             id="option1"
             autocomplete="off"
             onClick={() => props.setActual("PatentsView")}
-            style={props.actual === "PatentsView" ? resaltado : sinResaltar}
-            checked={props.actual === "PatentsView"}
-            disabled={props.actual === "PatentsView"}
           />{" "}
           PatentsView
-        </label>
-      );
-    }
-  };
-
-  let hayEPO = () => {
-    if (props.cualesSeMuestran.includes("EPO")) {
-      return (
-        <label class="btn btn-secondary">
-          <input type="radio" name="options" id="option2" autocomplete="off" />{" "}
-          EPO (no sirve salu2)
         </label>
       );
     }
@@ -45,8 +31,6 @@ function BotonesCambio(props) {
             id="option3"
             autocomplete="off"
             onClick={() => props.setActual("GoogleUPatents")}
-            checked={props.actual === "GoogleUPatents"}
-            disabled={props.actual === "GoogleUPatents"}
           />{" "}
           Google Utility Patents
         </label>
@@ -64,8 +48,6 @@ function BotonesCambio(props) {
             id="option2"
             autocomplete="off"
             onClick={() => props.setActual("GoogleIPatents")}
-            checked={props.actual === "GoogleIPatents"}
-            disabled={props.actual === "GoogleIPatents"}
           />{" "}
           Google Issued Patents
         </label>
@@ -83,10 +65,8 @@ function BotonesCambio(props) {
             id="option2"
             autocomplete="off"
             onClick={() => props.setActual("PatentScope")}
-            checked={props.actual === "PatentScope"}
-            disabled={props.actual === "PatentScope"}
           />{" "}
-          Google Issued Patents
+          PatentScope
         </label>
       );
     }
@@ -115,7 +95,6 @@ function BotonesCambio(props) {
     <div className="col text-center">
       <div class="btn-group btn-group-toggle text-center" data-toggle="buttons">
         {hayPatentscope()}
-        {hayEPO()}
         {hayGoogleUPatents()}
         {hayGoogleIPatents()}
         {hayPatentScope()}

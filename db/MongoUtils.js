@@ -219,9 +219,11 @@ function MongoUtils() {
     let filtro = { $text: { $search: "'" + body.text + "'" } };
 
     if (body.date != null) {
+      let fecha = new Date(Date.parse(body.date + "T00:00:00.000+00:00"));
       if (body.after != null) {
-        let values = body.date.split("-");
-        filtro.date = { $gt: new Date(values[0], values[1], values[2]) };
+        filtro.date = { $gt: fecha };
+      } else if (body.equal != null) {
+        filtro.date = { $eq: fecha };
       }
     }
 
@@ -232,6 +234,7 @@ function MongoUtils() {
         .db("patentSearch")
         .collection(colName)
         .find(filtro)
+        .limit(20)
         .toArray()
         .finally(() => client.close())
     );
