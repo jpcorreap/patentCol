@@ -1,0 +1,1 @@
+Para mejorar el entedimiento y separacion de componentes pasaria a separarlos en diferentes carpetas que contengan cada uno de estos, pensaria que es mejor para mejorar la lectura del codigo y el entendimiento del mismo.
