@@ -1,0 +1,59 @@
+.navbar {
+    color: white;
+    font-family: "Hind Vadodara", sans-serif;
+    background: #52b2bf;
+}
+
+h1 {
+    font-family: "Hind Vadodara", sans-serif;
+  }
+  h2 {
+    font-family: "Hind Vadodara", sans-serif;
+  }
+  h3 {
+    font-family: "Hind Vadodara", sans-serif;
+  }
+  h4 {
+    font-family: "Hind Vadodara", sans-serif;
+  }
+  
+  h5 {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+  h6 {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+
+  button {
+    font-family: "Source Sans Pro", sans-serif;
+    background: #52b2bf;
+    
+}
+  span {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+  
+  p {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+
+  li {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+  
+
+  .card-header {
+    font-family: "Hind Vadodara", sans-serif;
+  }
+  
+  .card-body {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+
+  .navbar-nav li strong {
+    color: white;
+}
+  #parrafoInicio {
+    font-family: "Source Sans Pro", sans-serif;
+  }
+ 

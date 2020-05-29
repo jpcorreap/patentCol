@@ -64,7 +64,10 @@ function Paso3PatentsView(props) {
         <br />
         <p>
           Te recomendamos fuertemente hacer uso de nuestro poderoso buscador
-          haciendo <a href="#">clic aquí</a>.
+          haciendo{" "}
+          <Link to={"/search"}>
+          click aqui.
+          </Link>
         </p>
       </div>
     </div>
