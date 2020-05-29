@@ -116,7 +116,6 @@ function DashboardBusqueda(props) {
                         className="form-check-input"
                         type="checkbox"
                         id="fiterPatentsView"
-                        disabled
                       />
                       <label
                         className="form-check-label"
@@ -175,7 +174,6 @@ function DashboardBusqueda(props) {
                         className="form-check-input"
                         type="checkbox"
                         id="filterNASA"
-                        disabled
                       />
                       <label className="form-check-label" htmlFor="filterNASA">
                         NASA Patents

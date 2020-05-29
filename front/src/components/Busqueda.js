@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MostrarResultados from "./MostrarResultados.js";
+import MostrarResultadosPatentsView from "./MostrarResultadosPatentsView.js";
+import MostrarResultadosNasa from "./MostrarResultadosNasa.js";
 import DashboardBusqueda from "./DashboardBusqueda.js";
 import BotonesCambio from "./BotonesCambio.js";
 
@@ -12,24 +14,15 @@ function Busqueda() {
   const [patentScope, setPatentScope] = useState(null);
   const [nasaPatents, setNasaPatents] = useState(null);
 
-  const ocultarSpinner = () => {
-    document.getElementById("spinnerCarga").style.visibility = "hidden";
-    document.getElementById("spinnerCarga").style.position = "absolute";
-  };
-
-  const mostrarSpinner = () => {
-    document.getElementById("spinnerCarga").style.visibility = "visible";
-    document.getElementById("spinnerCarga").style.position = "relative";
-  };
-
-  // Actualiza las patentes con la query dada por el usuario
-  const actualizarPatentsView = (palabrasClave, fecha) => {
+  const actualizarPatentsView = (query) => {
     let queriesPalabrasClave = "";
 
-    palabrasClave.split(" ").forEach((palabra) => {
+    query.text.split(" ").forEach((palabra) => {
       queriesPalabrasClave +=
         ',{"_text_any":{"patent_title":"' + palabra + '"}}';
     });
+
+    let fecha = query.date;
 
     async function fetchNewPatentsView() {
       const res = await fetch(
@@ -39,7 +32,6 @@ function Busqueda() {
         .json()
         .then((res) => {
           setPatentsView(res.patents);
-          ocultarSpinner();
         })
         .catch((err) => {
           console.log(err);
@@ -73,6 +65,7 @@ function Busqueda() {
                 break;
               case "nasaPatents":
                 setNasaPatents(res);
+                console.log("NASAAA", res);
                 break;
               default:
                 break;
@@ -104,50 +97,40 @@ function Busqueda() {
   function mostrarResultadosActuales() {
     switch (actual) {
       case "PatentsView":
-        return <MostrarResultados source={patentsView} />;
+        return <MostrarResultadosPatentsView source={patentsView} />;
       case "GoogleUPatents":
         return <MostrarResultados source={googleUPatents} />;
       case "GoogleIPatents":
         return <MostrarResultados source={googleIPatents} />;
       case "PatentScope":
         return <MostrarResultados source={patentScope} />;
-      case "NASA":
-        return <MostrarResultados source={nasaPatents} />;
+      case "NasaPatents":
+        return <MostrarResultadosNasa source={nasaPatents} />;
     }
   }
 
-  function validarElFetch() {
-    let bool1 = query.fuentes.includes("PatentsView") || patentsView !== null;
-    let bool2 =
-      query.fuentes.includes("GoogleUPatents") || googleUPatents !== null;
-    let bool3 =
-      query.fuentes.includes("GoogleIPatents") || googleIPatents !== null;
-    let bool4 = query.fuentes.includes("PatentScope") || patentScope !== null;
-    let bool5 = query.fuentes.includes("NASA") || nasaPatents !== null;
+  function acaboDeHacerLosFetchs() {
+    let acabo = false;
 
-    let yaTermino = /*bool1 &&*/ bool2 && bool3 && bool4; /*&& bool5*/
-
-    console.log("YAAA TERMINÓ??? ", yaTermino);
-    return yaTermino;
-  }
-
-  function mostrarLasNecesarias() {
-    if (Object.entries(query).length !== 0) {
-      if (validarElFetch()) {
-        return (
-          <div>
-            <BotonesCambio
-              cualesSeMuestran={query.fuentes}
-              actual={actual}
-              setActual={setActual}
-            />
-            <br />
-            <br />
-            {mostrarResultadosActuales()}
-          </div>
-        );
-      }
+    if (query.fuentes.includes("GoogleUPatents")) {
+      acabo = googleUPatents !== null;
     }
+    if (query.fuentes.includes("GoogleIPatents")) {
+      acabo = googleIPatents !== null;
+    }
+    if (query.fuentes.includes("PatentScope")) {
+      acabo = patentScope !== null;
+    }
+    if (query.fuentes.includes("NASA")) {
+      acabo = nasaPatents !== null;
+    }
+    if (query.fuentes.includes("PatentsView")) {
+      acabo = patentsView !== null;
+    }
+
+    console.log("¿Hizo todos los fetchs? -> ", acabo);
+
+    return acabo;
   }
 
   return (
@@ -161,7 +144,36 @@ function Busqueda() {
           }}
         />
       ) : (
-        <div>{mostrarLasNecesarias()}</div>
+        <div>
+          {acaboDeHacerLosFetchs() ? (
+            <div>
+              <BotonesCambio
+                cualesSeMuestran={query.fuentes}
+                actual={actual}
+                setActual={setActual}
+              />
+              <br />
+              <br />
+              {mostrarResultadosActuales()}
+            </div>
+          ) : (
+            <div id="spinnerCarga">
+              <div className="text-center" style={{ margin: "15px" }}>
+                <div className="spinner-border text-info" role="status">
+                  <span className="sr-only">
+                    Buscando información...
+                    <br />
+                  </span>
+                  <br />
+                </div>
+                <p style={{ fontSize: "1.2em" }}>
+                  <strong>Fetching data...</strong>
+                  <br />
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );

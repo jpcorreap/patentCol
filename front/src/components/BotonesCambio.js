@@ -1,13 +1,10 @@
 import React from "react";
 
 function BotonesCambio(props) {
-  let sinResaltar = { fontSize: "1em", color: "white" };
-  let resaltado = { fontSize: "1.2em", color: "blue" };
-
   let hayPatentscope = () => {
     if (props.cualesSeMuestran.includes("PatentsView")) {
       return (
-        <label class="btn btn-secondary active">
+        <label class="btn btn-info active">
           <input
             type="radio"
             name="options"
@@ -24,11 +21,11 @@ function BotonesCambio(props) {
   let hayGoogleUPatents = () => {
     if (props.cualesSeMuestran.includes("GoogleUPatents")) {
       return (
-        <label class="btn btn-secondary">
+        <label class="btn btn-info">
           <input
             type="radio"
             name="options"
-            id="option3"
+            id="option2"
             autocomplete="off"
             onClick={() => props.setActual("GoogleUPatents")}
           />{" "}
@@ -41,11 +38,11 @@ function BotonesCambio(props) {
   let hayGoogleIPatents = () => {
     if (props.cualesSeMuestran.includes("GoogleIPatents")) {
       return (
-        <label class="btn btn-secondary">
+        <label class="btn btn-info">
           <input
             type="radio"
             name="options"
-            id="option2"
+            id="option3"
             autocomplete="off"
             onClick={() => props.setActual("GoogleIPatents")}
           />{" "}
@@ -58,11 +55,11 @@ function BotonesCambio(props) {
   let hayPatentScope = () => {
     if (props.cualesSeMuestran.includes("PatentScope")) {
       return (
-        <label class="btn btn-secondary">
+        <label class="btn btn-info">
           <input
             type="radio"
             name="options"
-            id="option2"
+            id="option4"
             autocomplete="off"
             onClick={() => props.setActual("PatentScope")}
           />{" "}
@@ -75,15 +72,13 @@ function BotonesCambio(props) {
   let hayNASA = () => {
     if (props.cualesSeMuestran.includes("NASA")) {
       return (
-        <label class="btn btn-secondary">
+        <label class="btn btn-info">
           <input
             type="radio"
             name="options"
-            id="option3"
+            id="option5"
             autocomplete="off"
             onClick={() => props.setActual("NasaPatents")}
-            checked={props.actual === "NasaPatents"}
-            disabled={props.actual === "NasaPatents"}
           />{" "}
           NasaPatents
         </label>
