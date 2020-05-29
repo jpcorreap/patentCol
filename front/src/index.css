@@ -57,3 +57,12 @@ h1 {
     font-family: "Source Sans Pro", sans-serif;
   }
  
+  .btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+    background-color: #ffc400;
+    border-color: #8064A2;
+    color: black;
+}
