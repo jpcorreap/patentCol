@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DashboardBusqueda(props) {
   const [err, setErr] = useState(null);
   const [docs, setDocs] = useState([]);
 
+  let query = {};
+
   const setupWS = () => {
     const wss = new WebSocket("ws://localhost:3001");
     wss.onopen = () => {
-      console.log("WS client connected");
       wss.onmessage = (msg) => {
-        console.log("WS got message", msg);
         setDocs(JSON.parse(msg.data));
       };
     };
@@ -29,8 +31,63 @@ function DashboardBusqueda(props) {
       .catch((err) => setErr(err));
   }, []);
 
-  // Esto le manda la consulta al papá
-  const enviarBusqueda = () => {
+  function validarQuery(query) {
+    if (query.text === null || query.text === "") {
+      return "You must provide at least one keyword";
+    }
+
+    if (
+      query.text.includes("{") ||
+      query.text.includes("}") ||
+      query.text.includes("*") ||
+      query.text.includes("?") ||
+      query.text.includes("[") ||
+      query.text.includes("]") ||
+      query.text.includes('"') ||
+      query.text.includes("&")
+    ) {
+      return "There can't be special characters in keywords";
+    }
+
+    if (query.fuentes.length === 0) {
+      return "You must provide at least one source";
+    }
+
+    if (query.date !== null && query.date !== "") {
+      if (query.date.split("-").length !== 3 || query.date.length !== 10) {
+        return "Invalid date format";
+      }
+      if (query.after === false && query.equal === false) {
+        return "While filtering by date you must specify after or equal";
+      }
+    }
+
+    return "OK";
+  }
+
+  function hacerPostDeLaConsulta(text) {
+    async function postear(keywords) {
+      const res = await fetch("/setSearch", {
+        method: "POST",
+        body: JSON.stringify({ text: keywords }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      res
+        .json()
+        .then((res) => {
+          console.log("Search posted?: ", res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+
+    postear(text);
+  }
+
+  const darQuery = () => {
     let fuentes = [];
 
     let query = {
@@ -68,8 +125,7 @@ function DashboardBusqueda(props) {
 
     query.fuentes = fuentes;
 
-    // Se la manda al papá
-    props.setter(query);
+    return query;
   };
 
   return (
@@ -234,7 +290,32 @@ function DashboardBusqueda(props) {
                         placeholder="Author's name"
                       />
                     </div>
-                  </div>{" "}
+                  </div>
+                  <div className="col-6">
+                    <button
+                      className="btn btn-primary"
+                      style={{ width: "100%" }}
+                      onClick={() => {
+                        let query = darQuery();
+                        let respuesta = validarQuery(query);
+                        if (respuesta !== "OK") {
+                          return toast.info(respuesta, {
+                            position: "bottom-left",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                        } else {
+                          hacerPostDeLaConsulta(query.text);
+                          props.setter(query);
+                        }
+                      }}>
+                      Search
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -255,12 +336,9 @@ function DashboardBusqueda(props) {
                 <br />
                 <div className="text-left">
                   <div className="form-group" style={{ width: "100%" }}>
-                    <div
-                      className="form-control"
-                      id="exampleFormControlSelect2"
-                      style={{ height: "270px" }}>
+                    <ul className="list-group" style={{ height: "200px" }}>
                       {docs.map((d, i) => (
-                        <p key={i}>
+                        <li className="list-group-item" key={i}>
                           <strongCriollo
                             onClick={() =>
                               (document.getElementById("busqueda").value =
@@ -269,9 +347,9 @@ function DashboardBusqueda(props) {
                             {d.text}
                           </strongCriollo>
                           : {d.relativeDate}
-                        </p>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
                 </div>
               </div>
@@ -279,9 +357,17 @@ function DashboardBusqueda(props) {
             <div className="row">
               <div className="col text-right">
                 <div>
-                  <button className="btn btn-primary" onClick={enviarBusqueda}>
-                    Search
-                  </button>
+                  <ToastContainer
+                    position="bottom-left"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                  />
                 </div>
               </div>
             </div>
