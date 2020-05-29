@@ -4,8 +4,6 @@ import MostrarResultadosPatentsView from "./MostrarResultadosPatentsView.js";
 import MostrarResultadosNasa from "./MostrarResultadosNasa.js";
 import DashboardBusqueda from "./DashboardBusqueda.js";
 import BotonesCambio from "./BotonesCambio.js";
-import { Link } from "react-router-dom";
-
 
 function Busqueda() {
   const [query, setQuery] = useState({});
@@ -18,22 +16,32 @@ function Busqueda() {
 
   const actualizarPatentsView = (query) => {
     let queriesPalabrasClave = "";
+    let queryAutor = "";
 
     query.text.split(" ").forEach((palabra) => {
       queriesPalabrasClave +=
         ',{"_text_any":{"patent_title":"' + palabra + '"}}';
     });
 
-    let fecha = query.date;
+    if (query.author != "") {
+      queryAutor +=
+        ',{"inventor_last_name":"' + query.author.split(" ")[0] + '"}';
+    }
+
+    let fecha = query.date == "" ? "1980-01-01" : query.date;
+
+    let igual = query.equal == true ? "_eq" : "_gte";
 
     async function fetchNewPatentsView() {
-      const res = await fetch(
-        `https://www.patentsview.org/api/patents/query?q={"_and":[{"_gte":{"patent_date":"${fecha}"}}${queriesPalabrasClave}]}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]`
-      );
+      let url = `https://www.patentsview.org/api/patents/query?q={"_and":[{"${igual}":{"patent_date":"${fecha}"}}${queryAutor}${queriesPalabrasClave}]}&f=["patent_id","patent_title","patent_firstnamed_assignee_city","inventor_first_name","inventor_last_name","patent_firstnamed_inventor_country","patent_type","patent_abstract","patent_date"]`;
+
+      console.log("VAA A ARMAAAAARSE CON ", url);
+
+      const res = await fetch(url);
       res
         .json()
         .then((res) => {
-          setPatentsView(res.patents);
+          setPatentsView(res);
         })
         .catch((err) => {
           console.log(err);
@@ -67,7 +75,6 @@ function Busqueda() {
                 break;
               case "nasaPatents":
                 setNasaPatents(res);
-                console.log("NASAAA", res);
                 break;
               default:
                 break;
@@ -99,13 +106,13 @@ function Busqueda() {
   function mostrarResultadosActuales() {
     switch (actual) {
       case "PatentsView":
-        return <MostrarResultadosPatentsView source={patentsView} />;
+        return <MostrarResultadosPatentsView source={patentsView.patents} />;
       case "GoogleUPatents":
-        return <MostrarResultados source={googleUPatents} />;
+        return <MostrarResultados source={googleUPatents} img={"google"} />;
       case "GoogleIPatents":
-        return <MostrarResultados source={googleIPatents} />;
+        return <MostrarResultados source={googleIPatents} img={"google"} />;
       case "PatentScope":
-        return <MostrarResultados source={patentScope} />;
+        return <MostrarResultados source={patentScope} img={"googlenot"} />;
       case "NasaPatents":
         return <MostrarResultadosNasa source={nasaPatents} />;
     }
@@ -136,11 +143,16 @@ function Busqueda() {
   }
 
   function refreshPage() {
-    window.location.reload(false);
+    setQuery({});
+    setActual("");
+    setPatentsView(null);
+    setGoogleUPatents(null);
+    setGoogleIPatents(null);
+    setPatentScope(null);
+    setNasaPatents(null);
   }
 
   return (
-    
     <div>
       {Object.entries(query).length === 0 ? (
         <DashboardBusqueda
@@ -152,8 +164,9 @@ function Busqueda() {
         />
       ) : (
         <div>
-        
-          <button className="btn btn-primary" onClick={refreshPage}>Search Again</button>
+          <button className="btn btn-secondary" onClick={refreshPage}>
+            Search again
+          </button>
           {acaboDeHacerLosFetchs() ? (
             <div>
               <BotonesCambio

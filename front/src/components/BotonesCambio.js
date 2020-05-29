@@ -4,7 +4,7 @@ function BotonesCambio(props) {
   let hayPatentscope = () => {
     if (props.cualesSeMuestran.includes("PatentsView")) {
       return (
-        <label class="btn btn-info active">
+        <label class="btn btn-info">
           <input
             type="radio"
             name="options"
@@ -88,6 +88,7 @@ function BotonesCambio(props) {
 
   return (
     <div className="col text-center">
+      <p>Click on a source to view results:</p>
       <div class="btn-group btn-group-toggle text-center" data-toggle="buttons">
         {hayPatentscope()}
         {hayGoogleUPatents()}

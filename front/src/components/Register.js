@@ -8,7 +8,7 @@ const Register = () => {
           <form action="auth/register" method="post">
             <div className="form-group">
               <div className="row">
-                <label>Usuario:</label>
+                <label>Username:</label>
                 <input
                   type="text"
                   className="form-control"
@@ -20,7 +20,7 @@ const Register = () => {
             </div>
             <div className="form-group">
               <div className="row">
-                <label>Contraseña:</label>
+                <label>Password:</label>
                 <input
                   type="password"
                   className="form-control"
@@ -30,7 +30,7 @@ const Register = () => {
             </div>
             <div className="form-group">
               <div className="row">
-                <label>Confirmar contraseña:</label>
+                <label>Confirm password:</label>
                 <input
                   type="password"
                   className="form-control"

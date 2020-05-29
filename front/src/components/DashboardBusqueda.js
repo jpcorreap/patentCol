@@ -76,9 +76,7 @@ function DashboardBusqueda(props) {
       });
       res
         .json()
-        .then((res) => {
-          console.log("Search posted?: ", res);
-        })
+        .then((res) => {})
         .catch((err) => {
           console.log(err);
         });
@@ -100,33 +98,50 @@ function DashboardBusqueda(props) {
 
     if (document.getElementById("fiterPatentsView").checked) {
       fuentes.push("PatentsView");
-      props.actualizar.patentsView(query);
     }
 
     if (document.getElementById("filterGoogleUPatents").checked) {
       fuentes.push("GoogleUPatents");
-      props.actualizar.generics(query, "googleUtilityPatents");
     }
 
     if (document.getElementById("filterGoogleIPatents").checked) {
       fuentes.push("GoogleIPatents");
-      props.actualizar.generics(query, "googleReissuePatents");
     }
 
     if (document.getElementById("filterPatentScope").checked) {
       fuentes.push("PatentScope");
-      props.actualizar.generics(query, "patentscope");
     }
 
     if (document.getElementById("filterNASA").checked) {
       fuentes.push("NASA");
-      props.actualizar.generics(query, "nasaPatents");
     }
 
     query.fuentes = fuentes;
 
     return query;
   };
+
+  function validarActualizaciones(query) {
+    if (document.getElementById("fiterPatentsView").checked) {
+      props.actualizar.patentsView(query);
+    }
+
+    if (document.getElementById("filterGoogleUPatents").checked) {
+      props.actualizar.generics(query, "googleUtilityPatents");
+    }
+
+    if (document.getElementById("filterGoogleIPatents").checked) {
+      props.actualizar.generics(query, "googleReissuePatents");
+    }
+
+    if (document.getElementById("filterPatentScope").checked) {
+      props.actualizar.generics(query, "patentscope");
+    }
+
+    if (document.getElementById("filterNASA").checked) {
+      props.actualizar.generics(query, "nasaPatents");
+    }
+  }
 
   return (
     <div className="container" style={{ marginTop: "-38px" }}>
@@ -287,7 +302,7 @@ function DashboardBusqueda(props) {
                       <input
                         className="form-control"
                         id="author"
-                        placeholder="Author's name"
+                        placeholder="Author's lastname"
                       />
                     </div>
                   </div>
@@ -311,6 +326,7 @@ function DashboardBusqueda(props) {
                         } else {
                           hacerPostDeLaConsulta(query.text);
                           props.setter(query);
+                          validarActualizaciones(query);
                         }
                       }}>
                       Search

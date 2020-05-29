@@ -56,7 +56,9 @@ function Navbar(props) {
                   <strong>{props.username}</strong>
                 </button>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <button className="dropdown-item" href="auth/logout">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => window.location.replace("/auth/logout/")}>
                     Sing out
                   </button>
                 </div>

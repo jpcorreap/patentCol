@@ -8,13 +8,13 @@ const Login = () => {
           <form action="auth/login" method="post">
             <div className="form-group">
               <div className="row">
-                <label>Usuario:</label>
+                <label>Username:</label>
                 <input type="text" className="form-control" name="username" />
               </div>
             </div>
             <div className="form-group">
               <div className="row">
-                <label>Contraseña::</label>
+                <label>Password:</label>
                 <input
                   type="password"
                   className="form-control"
@@ -23,7 +23,7 @@ const Login = () => {
               </div>
             </div>
             <div className="text-center">
-              <button type="submit" className="btn btn-warning">
+              <button type="submit" className="btn btn-primary">
                 Ingresar
               </button>
             </div>
