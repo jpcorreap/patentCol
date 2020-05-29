@@ -4,6 +4,8 @@ import MostrarResultadosPatentsView from "./MostrarResultadosPatentsView.js";
 import MostrarResultadosNasa from "./MostrarResultadosNasa.js";
 import DashboardBusqueda from "./DashboardBusqueda.js";
 import BotonesCambio from "./BotonesCambio.js";
+import { Link } from "react-router-dom";
+
 
 function Busqueda() {
   const [query, setQuery] = useState({});
@@ -133,7 +135,12 @@ function Busqueda() {
     return acabo;
   }
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   return (
+    
     <div>
       {Object.entries(query).length === 0 ? (
         <DashboardBusqueda
@@ -145,6 +152,8 @@ function Busqueda() {
         />
       ) : (
         <div>
+        
+          <button className="btn btn-primary" onClick={refreshPage}>Search Again</button>
           {acaboDeHacerLosFetchs() ? (
             <div>
               <BotonesCambio
