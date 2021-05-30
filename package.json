@@ -25,7 +25,7 @@
     "passport-local": "^1.0.0",
     "reakit": "^1.0.0-rc.2",
     "styled-components": "^5.1.0",
-    "ws": "^7.3.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
